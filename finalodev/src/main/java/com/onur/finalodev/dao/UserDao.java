@@ -81,6 +81,7 @@ public class UserDao {
             user.setName(rs.getString("name"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
+            user.setRole(rs.getString("role"));
             user.setCartId(rs.getInt("cartId"));
             return user;
         });

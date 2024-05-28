@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,8 +25,8 @@ public class HomeController {
     
     @Autowired
     private ProductDao productDao;
-    
-	@RequestMapping(value = "/")
+
+	@GetMapping(value = "/")
 	public ModelAndView test(HttpServletResponse response) throws IOException {
 
 		// Kategorileri DAO sınıfından alın
@@ -46,7 +47,6 @@ public class HomeController {
     public ModelAndView getCategoryProducts(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String categoryName = request.getParameter("name");
         
-        // Belirli bir kategoriye ait ürünleri DAO sınıfından alın
 		List<Category> categories = categoryDao.getAllCategories();
         List<Product> products = productDao.getProductsByCategoryName(categoryName);
         

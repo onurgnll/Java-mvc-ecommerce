@@ -88,23 +88,22 @@ public class UserController {
         try {
 
             User user = userDao.loginUser(email, password);
+            if (user != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
+
+                ModelAndView modelAndView = new ModelAndView("home");
+                response.sendRedirect("/finalodev/");
+                return modelAndView;
+            }
 		} catch (Exception e) {
 			System.out.println(e);
-			// TODO: handle exception
-		}
-
-        if (user != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-
-            ModelAndView modelAndView = new ModelAndView("home");
-            modelAndView.addObject("message", "Login successful!");
-            return modelAndView;
-        } else {
             ModelAndView modelAndView = new ModelAndView("login");
             modelAndView.addObject("message", "Invalid email or password.");
             return modelAndView;
-        }
+		}
+        ModelAndView modelAndView = new ModelAndView("login");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/logout")

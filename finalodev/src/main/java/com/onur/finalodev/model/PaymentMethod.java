@@ -1,14 +1,14 @@
 package com.onur.finalodev.model;
 
-public class Category {
+public class PaymentMethod {
 
     private int id;
     private String name;
 
-    public Category() {
+    public PaymentMethod() {
     }
 
-    public Category(int id, String name) {
+    public PaymentMethod(int id, String name) {
         this.id = id;
         this.name = name;
     }
