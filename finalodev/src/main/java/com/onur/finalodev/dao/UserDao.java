@@ -30,6 +30,7 @@ public class UserDao {
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
             user.setCartId(rs.getInt("cartId"));
+            user.setRole(rs.getString("role"));
             return user;
         });
     }

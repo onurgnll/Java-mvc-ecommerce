@@ -38,6 +38,17 @@ public class CartProductDao {
             return cartProduct;
         });
     }
+    public List<CartProduct> getCartProductsByCartId(int cartId) {
+        String sqlGetCartProductByCartId = "SELECT * FROM cart_product WHERE cartId = ?";
+        return jdbcTemplate.query(sqlGetCartProductByCartId, new Object[]{cartId}, (rs, rowNum) -> {
+            CartProduct cartProduct = new CartProduct();
+            cartProduct.setCartId(rs.getInt("cartId"));
+            cartProduct.setProductId(rs.getInt("productId"));
+            cartProduct.setQuantity(rs.getInt("quantity"));
+            return cartProduct;
+        });
+    }
+
 
     public void addCartProduct(CartProduct cartProduct) {
         String sqlInsertCartProduct = "INSERT INTO cart_product (cartId, productId, quantity) VALUES (?, ?, ?)";
