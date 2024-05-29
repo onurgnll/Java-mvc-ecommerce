@@ -58,6 +58,8 @@ public class CartController {
 		
 
 			ModelAndView modelAndView = new ModelAndView("cart");
+			List<Category> categories = categoryDao.getAllCategories();
+			modelAndView.addObject("categories", categories);
 			modelAndView.addObject("cartProductListings", cartProductListings);
 
 			return modelAndView;

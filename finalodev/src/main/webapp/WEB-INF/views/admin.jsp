@@ -27,6 +27,11 @@
 	color: black;
 	
 }
+body{
+
+	font-family: Arial, sans-serif !important;
+	background-color: #f0f0f0 !important;
+}
 
 </style>
 <body>

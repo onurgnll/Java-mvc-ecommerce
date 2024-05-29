@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.onur.finalodev.dao.UserDao;
 import com.onur.finalodev.dao.CartDao;
+import com.onur.finalodev.dao.CategoryDao;
 import com.onur.finalodev.model.Category;
 import com.onur.finalodev.model.Product;
 import com.onur.finalodev.model.User;
@@ -27,15 +28,20 @@ public class UserController {
     private UserDao userDao;
 
     @Autowired
+    private CategoryDao categoryDao;
+    @Autowired
     private CartDao cartDao;
 
     @GetMapping(value = "/login")
     public ModelAndView getLogin( HttpServletResponse response) throws IOException {
 
 		// Kategorileri DAO sınıfından alın
-		
 
-		return new ModelAndView("login");
+		ModelAndView modelAndView = new ModelAndView("login");
+		List<Category> categories = categoryDao.getAllCategories();
+		modelAndView.addObject("categories", categories);
+
+		return modelAndView;
     }
     @GetMapping(value = "/register")
     public ModelAndView registerr( HttpServletResponse response) throws IOException {
@@ -43,7 +49,11 @@ public class UserController {
 		// Kategorileri DAO sınıfından alın
 		
 
-		return new ModelAndView("register");
+		ModelAndView modelAndView = new ModelAndView("register");
+		List<Category> categories = categoryDao.getAllCategories();
+		modelAndView.addObject("categories", categories);
+
+		return modelAndView;
     }
     
     

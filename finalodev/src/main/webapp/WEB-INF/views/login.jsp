@@ -7,7 +7,7 @@
 <title>Login</title>
 <style>
 body {
-	font-family: Arial, sans-serif;
+	font-family: Arial, sans-serif !important;
 	background-color: #f0f0f0 !important;
 	height: 100vh
 }

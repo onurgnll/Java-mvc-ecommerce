@@ -37,14 +37,14 @@ public class HomeController {
 	@GetMapping(value = "/")
 	public ModelAndView test(HttpServletResponse response) throws IOException {
 		// Kategorileri DAO sınıfından alın
-		List<Category> categories = categoryDao.getAllCategories();
 		
 		// Ürünleri DAO sınıfından alın
 		List<Product> products = productDao.getAllProducts();
 
 		ModelAndView modelAndView = new ModelAndView("home");
-		modelAndView.addObject("products", products);
+		List<Category> categories = categoryDao.getAllCategories();
 		modelAndView.addObject("categories", categories);
+		modelAndView.addObject("products", products);
 
 		return modelAndView;
 	}
