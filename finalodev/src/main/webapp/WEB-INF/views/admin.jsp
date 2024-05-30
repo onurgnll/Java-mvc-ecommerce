@@ -41,8 +41,7 @@ body{
 			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/orders">Kayıtlı Siparişler</a>
 			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/products">Kayıtlı Ürünler</a>
 			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/products">Ürün Oluştur</a>
-			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/categories">Kayıtlı Kategoriler</a>
-			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/products">Kategori Oluştur</a>
+			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/createCategory">Kategori Oluştur</a>
 		
 
 	</div>

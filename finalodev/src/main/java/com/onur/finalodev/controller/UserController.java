@@ -43,6 +43,30 @@ public class UserController {
 
 		return modelAndView;
     }
+    
+    @GetMapping(value = "/profil")
+    public ModelAndView userProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		HttpSession httpSession = request.getSession();
+
+		User user = (User) httpSession.getAttribute("user");
+		if (user != null) {
+			ModelAndView modelAndView = new ModelAndView("profil");
+			List<Category> categories = categoryDao.getAllCategories();
+			modelAndView.addObject("categories", categories);
+			modelAndView.addObject("user", user);
+
+			return modelAndView;
+			
+			
+		}else {
+
+			response.sendRedirect("/finalodev/");
+		}
+		return new ModelAndView("home");
+		// Kategorileri DAO sınıfından alın
+
+    }
     @GetMapping(value = "/register")
     public ModelAndView registerr( HttpServletResponse response) throws IOException {
 

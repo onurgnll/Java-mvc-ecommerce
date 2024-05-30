@@ -39,32 +39,36 @@ public class CartController {
 	private CartProductDao cartProductDao;
 
 	@GetMapping(value = "/sepet")
-	public ModelAndView sepet(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public ModelAndView sepet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		HttpSession httpSession = request.getSession();
-		
+
 		User user = (User) httpSession.getAttribute("user");
 		if (user != null) {
-		
+
 			List<CartProduct> cartProducts = cartProductDao.getCartProductsByCartId(user.getCartId());
 
 			List<CartProductListing> cartProductListings = new ArrayList<CartProductListing>();
-			
+
+			double totalPrice = 0.0; // Toplam fiyatı hesaplamak için değişken
+
 			for (CartProduct cartProduct : cartProducts) {
 				Product product = productDao.getProductById(cartProduct.getProductId());
-				cartProductListings.add(new CartProductListing(product , cartProduct.getQuantity()));
-			
+				cartProductListings.add(new CartProductListing(product, cartProduct.getQuantity()));
+				totalPrice += product.getPrice() * cartProduct.getQuantity(); // Ürün fiyatını ve miktarını çarparak
+																				// toplam fiyata ekle
 			}
-		
 
-			ModelAndView modelAndView = new ModelAndView("cart");
-			List<Category> categories = categoryDao.getAllCategories();
-			modelAndView.addObject("categories", categories);
-			modelAndView.addObject("cartProductListings", cartProductListings);
+	        String formattedTotalPrice = String.format("%.2f", totalPrice);
 
-			return modelAndView;
-		
-		}else {
+	        ModelAndView modelAndView = new ModelAndView("cart");
+	        List<Category> categories = categoryDao.getAllCategories();
+	        modelAndView.addObject("categories", categories);
+	        modelAndView.addObject("cartProductListings", cartProductListings);
+	        modelAndView.addObject("totalPrice", formattedTotalPrice);
+	        return modelAndView;
+
+		} else {
 			response.sendRedirect("/finalodev/login");
 		}
 		return new ModelAndView("home");

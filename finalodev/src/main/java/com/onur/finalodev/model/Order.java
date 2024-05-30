@@ -1,24 +1,29 @@
 package com.onur.finalodev.model;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Order {
 
     private int id;
     private int userId;
-    private double totalAmount;
-    private Date orderDate;
-    private String shippingAddress;
+    private double totalPrice;
+    private LocalDateTime createdAt;
+    private String address;
+    private int paymentMethodId;
 
+    private String status;
+    
     public Order() {
     }
 
-    public Order(int id, int userId, double totalAmount, Date orderDate, String shippingAddress) {
+    public Order(int id, int userId, double totalPrice, LocalDateTime createdAt, String address) {
         this.id = id;
         this.userId = userId;
-        this.totalAmount = totalAmount;
-        this.orderDate = orderDate;
-        this.shippingAddress = shippingAddress;
+        this.totalPrice = totalPrice;
+        this.createdAt = createdAt;
+        this.address = address;
     }
 
     public int getId() {
@@ -37,27 +42,43 @@ public class Order {
         this.userId = userId;
     }
 
-    public double getTotalAmount() {
-        return totalAmount;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getShippingAddress() {
-        return shippingAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
+
+	public int getPaymentMethodId() {
+		return paymentMethodId;
+	}
+
+	public void setPaymentMethodId(int paymentMethodId) {
+		this.paymentMethodId = paymentMethodId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

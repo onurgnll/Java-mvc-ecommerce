@@ -1,10 +1,10 @@
-<%@include file="navbar.jsp" %>
+<%@include file="navbar.jsp" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>New Category</title>
     <style type="text/css">
       body {
         font-family: Arial, sans-serif !important;
@@ -65,47 +65,16 @@
       class="h-75 d-flex flex-column justify-content-center align-items-center"
     >
       <div class="container5 p-5">
-        <form class="formm" action="/finalodev/admin/products" method="post">
+        <form class="formm" action="/finalodev/admin/newCategories" method="post">
           <div class="inpdiv">
+          <span>YENİ KATEGORİ OLUŞTUR</span>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="categoryId"
+              name="categoryName"
               required
-              placeholder="Ürün Adı"
+              placeholder="Yeni Kategori İsmini Giriniz"
             /><br />
-            <input
-              type="text"
-              id="imageUrl"
-              name="imageUrl"
-              required
-              placeholder="Fotoğraf Linki"
-            /><br />
-            <div class="input-group mb-3">
-              <select class="form-select" id="inputGroupSelect02" name="categoryId">
-                <option selected hidden>Kategori Seçiniz</option>
-                <%
-				if (categories != null) {
-					for (Category category : categories) {
-				%>
-				<option value="<%=category.getId()%>"><%=category.getName()%></option>
-				<%
-				}
-				}
-				%>
-              </select>
-            </div>
-            <input
-              type="text"
-              id="description"
-              name="description"
-              required
-              placeholder="Ürün Açıklaması"
-            /><br />
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Fiyat" />
-              <span class="input-group-text">TL</span>
-            </div>
           </div>
           <button class="button1" type="submit">Oluştur</button>
         </form>

@@ -54,13 +54,16 @@ CREATE TABLE `order` (
     `createdAt` DATETIME NOT NULL,
     `userId` INTEGER NOT NULL,
     `paymentMethodId` INTEGER NOT NULL,
-    `address` VARCHAR(255) NOT NULL, -- changed `adress` to `address`
+    `address` VARCHAR(255) NOT NULL,
+    `totalPrice` DOUBLE NOT NULL,
+    `status` VARCHAR(255) DEFAULT "BEKLIYOR",
     PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `order_product` (
     `orderId` INTEGER NOT NULL,
     `productId` INTEGER NOT NULL,
+    `quantity` INTEGER NOT NULL,
     PRIMARY KEY (`orderId`, `productId`)
 );
 
@@ -113,14 +116,14 @@ INSERT INTO `cart_product` (`cartId`, `productId`, `quantity`) VALUES
 (1, 3, 2);
 
 -- Insert data into `order`
-INSERT INTO `order` (`createdAt`, `userId`, `paymentMethodId`, `address`) VALUES
-('2023-01-01 10:00:00', 1, 1, '123 Main St'),
-('2023-02-01 12:00:00', 2, 2, '456 Oak St');
+INSERT INTO `order` (`createdAt`, `userId`, `paymentMethodId`, `address` , `totalPrice`) VALUES
+('2023-01-01 10:00:00', 1, 1, '123 Main St', 360),
+('2023-02-01 12:00:00', 2, 2, '456 Oak St',360);
 
 -- Insert data into `order_product`
-INSERT INTO `order_product` (`orderId`, `productId`) VALUES
-(1, 1),
-(1, 3);
+INSERT INTO `order_product` (`orderId`, `productId` , `quantity`) VALUES
+(1, 1,5),
+(1, 3,4);
 
 -- Insert data into `paymentmethod`
 INSERT INTO `paymentmethod` (`methodName`) VALUES

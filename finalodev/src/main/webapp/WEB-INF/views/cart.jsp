@@ -34,9 +34,8 @@ body {
 }
 </style>
 <body>
-	<div class="d-flex">
-		<div style="height: 75vh; width: 70%"
-			class=" overflow-auto d-flex  flex-wrap">
+	<div class="d-flex mt-2">
+		<div style="height: 75vh; width: 70%" class=" overflow-auto d-flex  flex-wrap">
 			<%
 			List<CartProductListing> cartProductListings = (List<CartProductListing>) request.getAttribute("cartProductListings");
 			if (cartProductListings != null) {
@@ -65,7 +64,38 @@ body {
 			%>
 		</div>
 		<div style="height: 75vh; width: 30%">
-		sepet detay
+			<div class="d-flex flex-column">
+				<%
+				if (cartProductListings != null) {
+					for (CartProductListing item : cartProductListings) {
+				%>
+				<div class="d-flex justify-content-between mx-5">
+					<span> <%=item.getProduct().getName()%>
+
+					</span> <span> <%=item.getProduct().getPrice()%>
+
+					</span> <span> <%=item.getQuantity()%>
+
+					</span>
+				</div>
+				<%
+				}
+				}
+				%>
+				<hr>
+				<div class="d-flex justify-content-between mx-5">
+					<span class="fw-bold">
+					Toplam Fiyat: 
+					</span>
+					<span class="fw-bold">
+					<%=request.getAttribute("totalPrice")%>
+					</span>
+				</div>
+				<div>
+					<a href="/finalodev/satinal">Sepeti Satın Al</a>
+				</div>
+
+			</div>
 		</div>
 
 	</div>

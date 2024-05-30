@@ -18,27 +18,27 @@ public class PaymentMethodDao {
     private JdbcTemplate jdbcTemplate;
 
     public List<PaymentMethod> getAllPaymentMethods() {
-        String sqlGetPaymentMethods = "SELECT * FROM payment_method";
+        String sqlGetPaymentMethods = "SELECT * FROM paymentmethod";
         return jdbcTemplate.query(sqlGetPaymentMethods, (rs, rowNum) -> {
             PaymentMethod paymentMethod = new PaymentMethod();
             paymentMethod.setId(rs.getInt("id"));
-            paymentMethod.setName(rs.getString("name"));
+            paymentMethod.setName(rs.getString("methodName"));
             return paymentMethod;
         });
     }
 
     public PaymentMethod getPaymentMethodById(int paymentMethodId) {
-        String sqlGetPaymentMethodById = "SELECT * FROM payment_method WHERE id = ?";
+        String sqlGetPaymentMethodById = "SELECT * FROM paymentmethod WHERE id = ?";
         return jdbcTemplate.queryForObject(sqlGetPaymentMethodById, new Object[]{paymentMethodId}, (rs, rowNum) -> {
             PaymentMethod paymentMethod = new PaymentMethod();
             paymentMethod.setId(rs.getInt("id"));
-            paymentMethod.setName(rs.getString("name"));
+            paymentMethod.setName(rs.getString("methodName"));
             return paymentMethod;
         });
     }
 
     public void addPaymentMethod(PaymentMethod paymentMethod) {
-        String sqlInsertPaymentMethod = "INSERT INTO payment_method (name) VALUES (?)";
+        String sqlInsertPaymentMethod = "INSERT INTO paymentmethod (methodName) VALUES (?)";
         jdbcTemplate.update(sqlInsertPaymentMethod, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
@@ -48,7 +48,7 @@ public class PaymentMethodDao {
     }
 
     public void updatePaymentMethod(PaymentMethod paymentMethod) {
-        String sqlUpdatePaymentMethod = "UPDATE payment_method SET name = ? WHERE id = ?";
+        String sqlUpdatePaymentMethod = "UPDATE paymentmethod SET methodName = ? WHERE id = ?";
         jdbcTemplate.update(sqlUpdatePaymentMethod, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
@@ -59,7 +59,7 @@ public class PaymentMethodDao {
     }
 
     public void deletePaymentMethod(int paymentMethodId) {
-        String sqlDeletePaymentMethod = "DELETE FROM payment_method WHERE id = ?";
+        String sqlDeletePaymentMethod = "DELETE FROM paymentmethod WHERE id = ?";
         jdbcTemplate.update(sqlDeletePaymentMethod, paymentMethodId);
     }
 }

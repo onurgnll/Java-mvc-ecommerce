@@ -114,6 +114,7 @@
 					if (user != null) {
 					%>
 					<a href="/finalodev/sepet" class="button">Sepetim</a>
+					<a href="/finalodev/profil" class="button mx-2">Profil</a>
 
 					<%
 					if (user.getRole().equals("USER")) {

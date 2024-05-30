@@ -2,11 +2,17 @@ package com.onur.finalodev.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.onur.finalodev.model.Order;
@@ -23,9 +29,10 @@ public class OrderDao {
             Order order = new Order();
             order.setId(rs.getInt("id"));
             order.setUserId(rs.getInt("userId"));
-            order.setTotalAmount(rs.getDouble("totalAmount"));
-            order.setOrderDate(rs.getDate("orderDate"));
-            order.setShippingAddress(rs.getString("shippingAddress"));
+            order.setTotalPrice(rs.getDouble("totalPrice"));
+            order.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+            order.setAddress(rs.getString("address"));
+            order.setPaymentMethodId(rs.getInt("paymentMethodId"));
             return order;
         });
     }
@@ -36,36 +43,44 @@ public class OrderDao {
             Order order = new Order();
             order.setId(rs.getInt("id"));
             order.setUserId(rs.getInt("userId"));
-            order.setTotalAmount(rs.getDouble("totalAmount"));
-            order.setOrderDate(rs.getDate("orderDate"));
-            order.setShippingAddress(rs.getString("shippingAddress"));
+            order.setTotalPrice(rs.getDouble("totalPrice"));
+            order.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+            order.setAddress(rs.getString("address"));
+            order.setPaymentMethodId(rs.getInt("paymentMethodId"));
             return order;
         });
     }
 
-    public void addOrder(Order order) {
-        String sqlInsertOrder = "INSERT INTO `order` (userId, totalAmount, orderDate, shippingAddress) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sqlInsertOrder, new PreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement ps) throws SQLException {
-                ps.setInt(1, order.getUserId());
-                ps.setDouble(2, order.getTotalAmount());
-                ps.setDate(3, new java.sql.Date(order.getOrderDate().getTime()));
-                ps.setString(4, order.getShippingAddress());
-            }
-        });
+    public int addOrder(Order order) {
+        String sqlInsertOrder = "INSERT INTO `order` (userId, totalPrice, createdAt, address, paymentMethodId) VALUES (?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        
+        jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(sqlInsertOrder, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, order.getUserId());
+            ps.setDouble(2, order.getTotalPrice());
+            ps.setTimestamp(3, Timestamp.valueOf(order.getCreatedAt()));
+            ps.setString(4, order.getAddress());
+            ps.setInt(5, order.getPaymentMethodId());
+            return ps;
+        }, keyHolder);
+        
+        return keyHolder.getKey().intValue();
     }
 
+
     public void updateOrder(Order order) {
-        String sqlUpdateOrder = "UPDATE `order` SET userId = ?, totalAmount = ?, orderDate = ?, shippingAddress = ? WHERE id = ?";
+        String sqlUpdateOrder = "UPDATE `order` SET userId = ?, totalPrice = ?, createdAt = ?, address = ?, paymentMethodId = ? , status = ? WHERE id = ?";
         jdbcTemplate.update(sqlUpdateOrder, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
                 ps.setInt(1, order.getUserId());
-                ps.setDouble(2, order.getTotalAmount());
-                ps.setDate(3, new java.sql.Date(order.getOrderDate().getTime()));
-                ps.setString(4, order.getShippingAddress());
-                ps.setInt(5, order.getId());
+                ps.setDouble(2, order.getTotalPrice());
+                ps.setTimestamp(3, Timestamp.valueOf(order.getCreatedAt()));
+                ps.setString(4, order.getAddress());
+                ps.setInt(5, order.getPaymentMethodId());
+                ps.setString(6, order.getStatus());
+                ps.setInt(7, order.getId());
             }
         });
     }

@@ -67,4 +67,19 @@ public class OrderProductDao {
         String sqlDeleteOrderProduct = "DELETE FROM order_product WHERE orderId = ? AND productId = ?";
         jdbcTemplate.update(sqlDeleteOrderProduct, orderId, productId);
     }
+    
+    public List<OrderProduct> getOrderProductsByUserId(int userId) {
+        String sqlGetOrderProductsByUserId = 
+            "SELECT op.* FROM order_product op " +
+            "JOIN `order` o ON op.orderId = o.id " +
+            "WHERE o.userId = ?";
+        
+        return jdbcTemplate.query(sqlGetOrderProductsByUserId, new Object[]{userId}, (rs, rowNum) -> {
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setOrderId(rs.getInt("orderId"));
+            orderProduct.setProductId(rs.getInt("productId"));
+            orderProduct.setQuantity(rs.getInt("quantity"));
+            return orderProduct;
+        });
+    }
 }
