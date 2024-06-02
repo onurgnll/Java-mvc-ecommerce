@@ -26,6 +26,7 @@ public class UserDao {
         
         return jdbcTemplate.query(sqlGetUsers, (rs, rowNum) -> {
             User user = new User();
+            user.setId(rs.getInt("id"));
             user.setName(rs.getString("name"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
@@ -41,10 +42,12 @@ public class UserDao {
         
         return jdbcTemplate.queryForObject(sqlGetUserById, new Object[]{userId}, (rs, rowNum) -> {
             User user = new User();
+            user.setId(rs.getInt("id"));
             user.setName(rs.getString("name"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
             user.setCartId(rs.getInt("cartId"));
+            user.setRole(rs.getString("role"));
             return user;
         });
     }
@@ -65,10 +68,10 @@ public class UserDao {
                     ps.setInt(4, user.getCartId());
                 }
             });
-		} catch (Exception e) {
-			throw new RuntimeException();
-			// TODO: handle exception
-		}
+        } catch (Exception e) {
+            throw new RuntimeException();
+            // TODO: handle exception
+        }
         
     }
 
@@ -87,4 +90,40 @@ public class UserDao {
             return user;
         });
     }
+
+    // Kullanıcıyı id ile siler
+    public void deleteUser(int userId) {
+        String sqlDeleteUser = "DELETE FROM user WHERE id = ?";
+        
+        try {
+            jdbcTemplate.update(sqlDeleteUser, userId);
+        } catch (Exception e) {
+        	System.out.println(e);
+            throw new RuntimeException();
+            // TODO: handle exception
+        }
+    }
+
+    // Kullanıcıyı günceller
+    public void updateUser(User user) {
+        String sqlUpdateUser = "UPDATE user SET name = ?, email = ?, password = ?, cartId = ?, role = ? WHERE id = ?";
+
+        try {
+            jdbcTemplate.update(sqlUpdateUser, new PreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps) throws SQLException {
+                    ps.setString(1, user.getName());
+                    ps.setString(2, user.getEmail());
+                    ps.setString(3, user.getPassword());
+                    ps.setInt(4, user.getCartId());
+                    ps.setString(5, user.getRole());
+                    ps.setInt(6, user.getId());
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException("Error updating user: " + e.getMessage());
+        }
+    }
+
 }

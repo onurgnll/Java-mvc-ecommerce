@@ -1,27 +1,19 @@
-<%@page import="com.onur.finalodev.model.Category"%>
-<%@page import="java.util.List"%>
+
 <%@page import="com.onur.finalodev.model.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="navbar.jsp"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Home</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <style>
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f0f0f0;
-}
-.card-img-top {
+
+    body {
+        font-family: Arial, sans-serif !important;
+        background-color: #f0f0f0 !important;
+    }.card-img-top {
 	height: 200px;
 	object-fit: contain;
 	object-position: center;
@@ -32,7 +24,6 @@ body {
 .bthnnn {
 	background-color: #ff1b6b !important;
 	border: none;
-	display: none;
 	border-radius: 10px;
 	 /* Butonu başlangıçta gizleyin */
 }
@@ -43,19 +34,10 @@ body {
 	cursor: pointer;
 }
 
-.price-container:hover .price-text {
-	display: none;
-}
-
-.price-container:hover .bthnnn {
-	display: block; /* Hover üzerinde butonu göster */
-	color: white;
-	background: none;
-}
 </style>
 <body>
-	<div class="d-flex justify-content-around flex-wrap">
-		<%
+<div class="d-flex justify-content-around flex-wrap">
+<%
 		List<Product> products = (List<Product>) request.getAttribute("products");
 		if (products != null) {
 			for (Product item : products) {
@@ -79,6 +61,6 @@ body {
 		<%
 		}
 		%>
-	</div>
+		</div>
 </body>
 </html>

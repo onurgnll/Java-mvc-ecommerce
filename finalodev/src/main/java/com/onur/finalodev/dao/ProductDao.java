@@ -95,4 +95,19 @@ public class ProductDao {
             return product;
         });
     }
+
+    // New method to get products by name
+    public List<Product> getProductsByName(String name) {
+        String sqlGetProductsByName = "SELECT * FROM product WHERE name LIKE ?";
+        return jdbcTemplate.query(sqlGetProductsByName, new Object[]{"%" + name + "%"}, (rs, rowNum) -> {
+            Product product = new Product();
+            product.setId(rs.getInt("id"));
+            product.setName(rs.getString("name"));
+            product.setPrice(rs.getDouble("price"));
+            product.setImageUrl(rs.getString("imageUrl"));
+            product.setCategoryId(rs.getInt("categoryId"));
+            product.setDescription(rs.getString("description"));
+            return product;
+        });
+    }
 }

@@ -85,7 +85,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-4 d-flex justify-content-center">
-                <a class="boxadmin"  href="/finalodev/admin/products">
+                <a class="boxadmin"  href="/finalodev/admin/createproduct">
                     <img src="https://www.jetstok.com/assets/images/uploadeditor/456df0e4-d6f3-4d30-94e7-c3c0f20589f6.png" alt="">
                     <span>Ürün Oluştur</span>
                 </a>

@@ -103,7 +103,7 @@
               placeholder="Ürün Açıklaması"
             /><br />
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Fiyat" />
+              <input type="text" name="price" class="form-control" placeholder="Fiyat" />
               <span class="input-group-text">TL</span>
             </div>
           </div>

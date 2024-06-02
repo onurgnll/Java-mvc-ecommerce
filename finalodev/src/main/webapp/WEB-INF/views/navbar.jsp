@@ -7,6 +7,10 @@
 <head>
 <title>home</title>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 <style>
@@ -99,14 +103,14 @@
 			<div class="d-flex justify-content-around my-3 bg-white p-2 align-items-center mx-3">
 				<a href="/finalodev/" class="title">MEGASTORE</a>
 
-				<div class="search-box ml-5">
+				<form action="/finalodev/ara" method="post" class="search-box ml-5">
 				
 					<label>
-					<input type="text" class="search-input" /> 
+					<input type="text" name="name" class="search-input" /> 
 					<i class="fas fa-search search-icon"></i>
 					
 					</label>
-				</div>
+				</form>
 				<div>
 					<%
 					User user = (User) session.getAttribute("user");
@@ -139,7 +143,7 @@
 				if (categories != null) {
 					for (Category category : categories) {
 				%>
-				<a href="category?name=<%=category.getName()%>"><%=category.getName()%></a>
+				<a href="/finalodev/category?name=<%=category.getName()%>"><%=category.getName()%></a>
 				<%
 				}
 				}

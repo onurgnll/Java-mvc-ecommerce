@@ -25,6 +25,7 @@ body {
 	font-family: Arial, sans-serif !important;
 	background-color: #f0f0f0 !important;
 }
+
 .card-img-top {
 	height: 200px;
 	object-fit: cover;
@@ -35,37 +36,41 @@ body {
 	background-color: #ff1b6b !important;
 	border: none;
 }
-.iconn{
+
+.iconn {
 	font-size: 4rem !important;
 }
 </style>
 <body>
-	<div class="d-flex justify-content-around flex-wrap m-2 mt-4" >
+	<div class="d-flex justify-content-around flex-wrap m-2 mt-4">
 		<%
 		List<User> usersAdmin = (List<User>) request.getAttribute("users");
 		if (usersAdmin != null) {
 			for (User userAdmin : usersAdmin) {
 		%>
-		<div class="card m-2 " style="width: 16rem; border-radius: 20px; border:none ;box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+		<form action="/finalodev/admin/editUser/<%=userAdmin.getId()%>"
+			method="post" class="card m-2 " style="width: 16rem;">
 			<div class="d-flex justify-content-center">
-			<img alt="" src="https://cdn.pixabay.com/photo/2016/04/15/18/05/computer-1331579_640.png" style="width:100px; height:100px" class="mt-3">
+				<img alt=""
+					src="https://cdn.pixabay.com/photo/2016/04/15/18/05/computer-1331579_640.png"
+					style="width: 100px; height: 100px" class="mt-3">
 			</div>
 			<div class="card-body">
-				<h5 class="card-title text-center"><%=userAdmin.getName()%></h5>
-				<p class="card-text text-center"><%=userAdmin.getEmail() %></p>
+				<input name="name" value="<%=userAdmin.getName()%>"
+					class="card-title text-center"
+					style="border: none; font-weight: bold"> <input
+					name="email" value="<%=userAdmin.getEmail()%>"
+					class="card-title text-center" style="border: none">
 				<div class="d-flex justify-content-between align-items-center">
-				<div>
-					<span><%=userAdmin.getRole() %></span>
-				</div>
-				<div>
-					<button type="submit" class="btn btn-primary bthnnn"
-						value="Sepete Ekle">Düzenle</button>
-					<button type="submit" class="btn btn-primary bthnnn"
-						value="Sepete Ekle">Sil</button>
-				</div>
+					<span><%=userAdmin.getRole()%></span>
+					<div>
+						<button type="submit" class="btn btn-primary bthnnn py-1">Düzenle</button>
+						<a href="/finalodev/admin/deleteUser/<%=userAdmin.getId()%>"
+							class="btn btn-primary bthnnn py-1">Sil</a>
+					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 		<%
 		}
 		}

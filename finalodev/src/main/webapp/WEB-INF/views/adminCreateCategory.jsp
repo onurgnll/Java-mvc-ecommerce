@@ -65,7 +65,7 @@
       <div class="container5 p-5">
         <form class="formm" action="/finalodev/admin/newCategories" method="post">
           <div class="inpdiv">
-          <span class="p-2">YENİ KATEGORİ OLUŞTUR</span>
+          <span class="p-2 fw-bold">YENİ KATEGORİ OLUŞTUR</span>
             <input
               type="text"
               id="categoryId"

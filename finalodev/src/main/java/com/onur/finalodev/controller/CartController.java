@@ -59,19 +59,109 @@ public class CartController {
 																				// toplam fiyata ekle
 			}
 
-	        String formattedTotalPrice = String.format("%.2f", totalPrice);
+			String formattedTotalPrice = String.format("%.2f", totalPrice);
 
-	        ModelAndView modelAndView = new ModelAndView("cart");
-	        List<Category> categories = categoryDao.getAllCategories();
-	        modelAndView.addObject("categories", categories);
-	        modelAndView.addObject("cartProductListings", cartProductListings);
-	        modelAndView.addObject("totalPrice", formattedTotalPrice);
-	        return modelAndView;
+			ModelAndView modelAndView = new ModelAndView("cart");
+			List<Category> categories = categoryDao.getAllCategories();
+			modelAndView.addObject("categories", categories);
+			modelAndView.addObject("cartProductListings", cartProductListings);
+			modelAndView.addObject("totalPrice", formattedTotalPrice);
+			return modelAndView;
 
 		} else {
 			response.sendRedirect("/finalodev/login");
 		}
 		return new ModelAndView("home");
+	}
+
+	@GetMapping(value = "/increaseCartQuantityInCart/{productId}")
+	public void increaseCartQuantityInCart(@PathVariable("productId") String productId, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		HttpSession httpSession = request.getSession();
+
+		User user = (User) httpSession.getAttribute("user");
+		if (user != null) {
+			int cartId = user.getCartId();
+
+			try {
+
+				CartProduct cartProduct = cartProductDao.getCartProductById(cartId, Integer.parseInt(productId));
+				cartProduct.setQuantity(cartProduct.getQuantity() + 1);
+
+				cartProductDao.updateCartProduct(cartProduct);
+
+				response.sendRedirect("/finalodev/sepet");
+
+			} catch (Exception e) {
+				System.out.println(e);
+				// TODO: handle exception
+			}
+
+		} else {
+			response.sendRedirect("/finalodev/login");
+		}
+	}
+
+	@GetMapping(value = "/decreaseCartQuantityInCart/{productId}")
+	public void decreaseCartQuantityInCart(@PathVariable("productId") String productId, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		HttpSession httpSession = request.getSession();
+
+		User user = (User) httpSession.getAttribute("user");
+		if (user != null) {
+			int cartId = user.getCartId();
+
+			try {
+
+				CartProduct cartProduct = cartProductDao.getCartProductById(cartId, Integer.parseInt(productId));
+
+				if (cartProduct.getQuantity() == 1) {
+					cartProductDao.deleteCartProduct(cartId, Integer.parseInt(productId));
+				} else {
+					cartProduct.setQuantity(cartProduct.getQuantity() - 1);
+
+					cartProductDao.updateCartProduct(cartProduct);
+
+				}
+
+				response.sendRedirect("/finalodev/sepet");
+
+			} catch (Exception e) {
+				System.out.println(e);
+				// TODO: handle exception
+			}
+
+		} else {
+			response.sendRedirect("/finalodev/login");
+		}
+	}
+
+	@GetMapping(value = "/deleteFromCart/{productId}")
+	public void deleteFromCart(@PathVariable("productId") String productId, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		HttpSession httpSession = request.getSession();
+
+		User user = (User) httpSession.getAttribute("user");
+		if (user != null) {
+			int cartId = user.getCartId();
+
+			try {
+
+				cartProductDao.deleteCartProduct(cartId, Integer.parseInt(productId));
+
+				response.sendRedirect("/finalodev/sepet");
+
+			} catch (Exception e) {
+				System.out.println(e);
+				// TODO: handle exception
+			}
+
+		} else {
+			response.sendRedirect("/finalodev/login");
+		}
 	}
 
 	@PostMapping(value = "/addToCart/{productId}")

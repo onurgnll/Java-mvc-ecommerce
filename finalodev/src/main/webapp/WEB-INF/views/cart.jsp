@@ -44,24 +44,28 @@ body {
 			<div class="my-3 d-flex justify-content-between p-3 ms-3"
 				style="width: 50rem; height: 10rem; background-color: #E5EDF2; border-radius: 10px">
 				<img
-					src="https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvam9iNjgwLTE2Ni1wLWwxZGJ1cTN2LnBuZw.png"
+					src="<%= item.getProduct().getImageUrl() %>"
 					class="" alt="...">
 				<div class="d-flex flex-column">
 					<span class="fw-bold"><%=item.getProduct().getName()%></span> <span
 						class="fw-bold"><%=item.getProduct().getDescription()%></span> <span
-						class="fw-bold" style="color: #FF1B6B"><%=item.getProduct().getPrice()%> TL</span>
+						class="fw-bold" style="color: #FF1B6B"><%=item.getProduct().getPrice()%>
+						TL</span>
 
 				</div>
 				<div class="d-flex me-3">
 					<div
 						class="d-flex justify-content-center align-items-center bg-white mt-5"
 						style="width: 140px; height: 30px; border-radius: 10px">
-						<a href="" class="text-primary fs-2 text-decoration-none">+</a> <span
-							class="mx-4"><%=item.getQuantity()%></span> <a href=""
+						
+						<a href="/finalodev/increaseCartQuantityInCart/<%=item.getProduct().getId() %>" class="text-primary fs-2 text-decoration-none">+</a> 
+						<span class="mx-4"><%=item.getQuantity()%></span> 
+							
+						<a href="/finalodev/decreaseCartQuantityInCart/<%=item.getProduct().getId() %>"
 							class="text-primary fs-2 text-decoration-none">-</a>
 					</div>
 					<div class="mt-5 ms-3">
-						<a href="" class="text-decoration-none"
+						<a href="/finalodev/deleteFromCart/<%=item.getProduct().getId() %>" class="text-decoration-none"
 							style="color: black; font-size: 13px; font-weight: bold"><i
 							class="fas fa-solid fa-trash"></i> SİL</a>
 
@@ -77,16 +81,17 @@ body {
 			}
 			%>
 		</div>
-		
-		<div style="height: 75vh; width: 30%; background-color: #E5EDF2; border-radius:15px" class="m-3 p-3">
+
+		<div
+			style="height: 75vh; width: 30%; background-color: #E5EDF2; border-radius: 15px"
+			class="m-3 p-3">
 			<div class="d-flex flex-column">
 				<%
 				if (cartProductListings != null) {
 					for (CartProductListing item : cartProductListings) {
 				%>
 				<div class="d-flex justify-content-between mx-5">
-					<span> <%=item.getProduct().getName()%></span>
-					<span> <%=item.getProduct().getPrice()%></span>
+					<span> <%=item.getProduct().getName()%></span> <span> <%=item.getProduct().getPrice()%></span>
 					<span> <%=item.getQuantity()%></span>
 				</div>
 				<%
@@ -100,9 +105,9 @@ body {
 					</span>
 				</div>
 				<div class="mt-3 me-4 d-flex justify-content-end">
-					<a href="/finalodev/satinal"
-					class="px-4 py-2"
-					style="background-color: #FF1B6B; text-decoration:none; color:white; border-radius:10px">Sepeti Onayla</a>
+					<a href="/finalodev/satinal" class="px-4 py-2"
+						style="background-color: #FF1B6B; text-decoration: none; color: white; border-radius: 10px">Sepeti
+						Onayla</a>
 				</div>
 
 			</div>

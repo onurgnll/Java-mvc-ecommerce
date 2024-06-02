@@ -18,9 +18,8 @@
 </head>
 <style>
     body {
-        font-family: 'Inter', sans-serif !important;
-        background-color: #F5F5F5;
-        padding: 50px;
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
     }
      .profile-container, .order-history {
         background: #FFFFFF;

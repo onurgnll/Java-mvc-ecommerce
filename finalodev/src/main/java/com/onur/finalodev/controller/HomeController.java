@@ -39,11 +39,11 @@ public class HomeController {
 		// Kategorileri DAO sınıfından alın
 		
 		// Ürünleri DAO sınıfından alın
-		List<Product> products = productDao.getAllProducts();
 
 		ModelAndView modelAndView = new ModelAndView("home");
 		List<Category> categories = categoryDao.getAllCategories();
 		modelAndView.addObject("categories", categories);
+		List<Product> products = productDao.getAllProducts();
 		modelAndView.addObject("products", products);
 
 		return modelAndView;
@@ -57,6 +57,20 @@ public class HomeController {
         List<Product> products = productDao.getProductsByCategoryName(categoryName);
         
         ModelAndView modelAndView = new ModelAndView("categoryProducts");
+        modelAndView.addObject("products", products);
+        modelAndView.addObject("categoryName", categoryName);
+        modelAndView.addObject("categories", categories);
+
+        return modelAndView;
+    }
+    @RequestMapping(value = "/ara")
+    public ModelAndView searchProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String categoryName = request.getParameter("name");
+        
+        List<Category> categories = categoryDao.getAllCategories();
+        List<Product> products = productDao.getProductsByName(categoryName);
+        
+        ModelAndView modelAndView = new ModelAndView("search");
         modelAndView.addObject("products", products);
         modelAndView.addObject("categoryName", categoryName);
         modelAndView.addObject("categories", categories);
