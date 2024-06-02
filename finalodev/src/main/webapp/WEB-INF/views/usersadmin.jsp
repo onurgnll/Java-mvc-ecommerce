@@ -21,6 +21,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 <style>
+body {
+	font-family: Arial, sans-serif !important;
+	background-color: #f0f0f0 !important;
+}
 .card-img-top {
 	height: 200px;
 	object-fit: cover;
@@ -29,23 +33,22 @@
 
 .bthnnn {
 	background-color: #ff1b6b !important;
+	border: none;
 }
 .iconn{
-	font-size: 11rem !important;
+	font-size: 4rem !important;
 }
 </style>
 <body>
-	<h2>Tüm Kullanıcılar</h2>
-	<div class="d-flex justify-content-around flex-wrap">
+	<div class="d-flex justify-content-around flex-wrap m-2 mt-4" >
 		<%
 		List<User> usersAdmin = (List<User>) request.getAttribute("users");
 		if (usersAdmin != null) {
 			for (User userAdmin : usersAdmin) {
 		%>
-		<div class="card m-2" style="width: 18rem;">
+		<div class="card m-2 " style="width: 16rem; border-radius: 20px; border:none ;box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
 			<div class="d-flex justify-content-center">
-			
-			<i class="fas fa-solid fa-user iconn"></i>
+			<img alt="" src="https://cdn.pixabay.com/photo/2016/04/15/18/05/computer-1331579_640.png" style="width:100px; height:100px" class="mt-3">
 			</div>
 			<div class="card-body">
 				<h5 class="card-title text-center"><%=userAdmin.getName()%></h5>

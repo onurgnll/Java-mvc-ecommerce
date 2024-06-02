@@ -1,4 +1,3 @@
-
 <%@include file="navbar.jsp"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,33 +16,93 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 <style>
-.boxadmin {
-	height: 200px;
-	width: 200px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
-    display:flex;
-	text-decoration: none;
-	color: black;
-	
-}
-body{
+    body {
+        font-family: Arial, sans-serif !important;
+        background-color: #f0f0f0 !important;
+    }
 
-	font-family: Arial, sans-serif !important;
-	background-color: #f0f0f0 !important;
-}
+    .boxadmin {
+        height: 250px;
+        width: 250px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: black;
+        overflow: hidden;
+        background-color: white;
+        position: relative;
+        margin-top: 25px;
+    }
 
+    .boxadmin img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.40;
+        transition: opacity 0.3s ease;
+    }
+
+    .boxadmin:hover img {
+        opacity: 1;
+    }
+
+    .boxadmin span {
+        position: absolute;
+        font-weight: bold;
+        
+        font-size: 1.2rem;
+        text-align: center;
+        z-index: 1;
+        color: #000;
+    }
 </style>
+</head>
 <body>
-	<div class="d-flex justify-content-around flex-wrap">
-
-			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/users">Kayıtlı kullanıcılar</a>
-			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/orders">Kayıtlı Siparişler</a>
-			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/products">Kayıtlı Ürünler</a>
-			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/products">Ürün Oluştur</a>
-			<a class="m-3 boxadmin text-center fw-bold fs-3 d-flex align-items-center" href="/finalodev/admin/createCategory">Kategori Oluştur</a>
-		
-
-	</div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 d-flex justify-content-center">
+                <a class="boxadmin" href="/finalodev/admin/users">
+                    <img src="https://i0.wp.com/networknuts.net/wp-content/uploads/2019/11/zahir-accounting-software-have-more-than-60.000-users.png?resize=600%2C400&ssl=1" alt="">
+                    <span>Kayıtlı kullanıcılar</span>
+                </a>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <a class="boxadmin" href="/finalodev/admin/orders">
+                    <img src="https://www.mimsangrup.com.tr/images/haberler/teslimat_76a73.jpg" alt="">
+                    <span>Kayıtlı Siparişler</span>
+                </a>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <a class="boxadmin" href="/finalodev/admin/products">
+                    <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*7sZoXca4YQ-iS7gKPmqetg.png" alt="">
+                    <span>Kayıtlı Ürünler</span>
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4 d-flex justify-content-center">
+                <a class="boxadmin"  href="/finalodev/admin/products">
+                    <img src="https://www.jetstok.com/assets/images/uploadeditor/456df0e4-d6f3-4d30-94e7-c3c0f20589f6.png" alt="">
+                    <span>Ürün Oluştur</span>
+                </a>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <a class="boxadmin" href="/finalodev/admin/createCategory">
+                    <img src="https://paym.es/blog/wp-content/uploads/2017/05/ecommerce-products.jpg" alt="">
+                    <span>Kategori Oluştur</span>
+                </a>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <a class="boxadmin" href="/finalodev/admin/returns">
+                    <img src="https://teldukkani.com/wp-content/uploads/2020/02/unnamed-1.png" alt="">
+                    <span></span>
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

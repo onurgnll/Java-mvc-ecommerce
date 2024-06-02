@@ -18,8 +18,6 @@
         text-align: center;
         display: flex;
         justify-content: center;
-        padding-top: 10px;
-        padding-bottom: 15px;
       }
       .button1 {
         background-color: #ff1b6b;
@@ -41,7 +39,7 @@
         background-color: #e5edf2;
         border: none;
         padding: 10px;
-        margin-bottom: 15px;
+        margin: 15px;
         border-radius: 5px;
         outline: none;
       }
@@ -67,7 +65,7 @@
       <div class="container5 p-5">
         <form class="formm" action="/finalodev/admin/newCategories" method="post">
           <div class="inpdiv">
-          <span>YENİ KATEGORİ OLUŞTUR</span>
+          <span class="p-2">YENİ KATEGORİ OLUŞTUR</span>
             <input
               type="text"
               id="categoryId"

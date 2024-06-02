@@ -34,6 +34,7 @@ body{
 }
 .bthnnn{
         background-color: #ff1b6b !important;
+        border: none;
 }
 </style>
 <body>
@@ -44,7 +45,7 @@ body{
 		if (products != null) {
 			for (Product item : products) {
 		%>
-		<form action="/finalodev/addToCart/<%=item.getId()%>" method="post" class="card m-2" style="width: 18rem;">
+		<form action="/finalodev/addToCart/<%=item.getId()%>" method="post" class="card m-4" style="width: 16rem; border:none; border-radius:20px">
 			<img src="https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvam9iNjgwLTE2Ni1wLWwxZGJ1cTN2LnBuZw.png"
 				class="card-img-top" alt="...">
 			<div class="card-body">

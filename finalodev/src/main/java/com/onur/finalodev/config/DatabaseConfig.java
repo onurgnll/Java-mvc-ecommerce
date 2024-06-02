@@ -15,8 +15,8 @@ public class DatabaseConfig {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/webprogecommerce");
-        dataSource.setUsername("springstudent");
-        dataSource.setPassword("springstudent");
+        dataSource.setUsername("root");
+        dataSource.setPassword("123456");
         return dataSource;
     }
 

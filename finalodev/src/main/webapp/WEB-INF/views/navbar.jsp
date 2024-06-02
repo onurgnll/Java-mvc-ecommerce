@@ -95,7 +95,6 @@
 </head>
 <body>
 	<nav class="">
-
 		<div class="d-flex flex-column">
 			<div class="d-flex justify-content-around my-3 bg-white p-2 align-items-center mx-3">
 				<a href="/finalodev/" class="title">MEGASTORE</a>
