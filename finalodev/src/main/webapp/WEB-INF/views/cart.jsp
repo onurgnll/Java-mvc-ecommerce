@@ -1,5 +1,6 @@
 <%@page import="com.onur.finalodev.model.CartProductListing"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="navbar.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,7 @@ body {
 			class=" overflow-auto d-flex  flex-wrap">
 			<%
 			List<CartProductListing> cartProductListings = (List<CartProductListing>) request.getAttribute("cartProductListings");
-			if (cartProductListings != null) {
+			if (cartProductListings.size() > 0) {
 				for (CartProductListing item : cartProductListings) {
 			%>
 			<div class="my-3 d-flex justify-content-between p-3 ms-3"
@@ -76,7 +77,11 @@ body {
 			}
 			} else {
 			%>
-			<p>No products available.</p>
+			<div class="w-100 h-100 d-flex align-items-center flex-column">
+			
+				<img class="w-50 h-50" src="https://media1.giphy.com/media/NnSFnC428LRHaxUNzj/giphy.gif?cid=6c09b952ltl3t5dzq6ak95cqp4z7txddlotviteo8trl42zq&ep=v1_gifs_search&rid=giphy.gif&ct=s"></img>
+				<h2>Sepetinizde herhangi bir ürün yok.</h2>
+			</div>
 			<%
 			}
 			%>

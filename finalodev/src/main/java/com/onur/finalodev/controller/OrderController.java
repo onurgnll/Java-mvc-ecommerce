@@ -68,28 +68,33 @@ public class OrderController {
 
 			List<CartProduct> cartProducts = cartProductDao.getCartProductsByCartId(user.getCartId());
 
-			
-			
-			List<CartProductListing> cartProductListings = new ArrayList<CartProductListing>();
+			if(cartProducts.size()> 0) {
 
-			double totalPrice = 0.0; // Toplam fiyatı hesaplamak için değişken
+				List<CartProductListing> cartProductListings = new ArrayList<CartProductListing>();
 
-			for (CartProduct cartProduct : cartProducts) {
-				Product product = productDao.getProductById(cartProduct.getProductId());
-				cartProductListings.add(new CartProductListing(product, cartProduct.getQuantity()));
-				totalPrice += product.getPrice() * cartProduct.getQuantity(); // Ürün fiyatını ve miktarını çarparak
-																				// toplam fiyata ekle
+				double totalPrice = 0.0; // Toplam fiyatı hesaplamak için değişken
+
+				for (CartProduct cartProduct : cartProducts) {
+					Product product = productDao.getProductById(cartProduct.getProductId());
+					cartProductListings.add(new CartProductListing(product, cartProduct.getQuantity()));
+					totalPrice += product.getPrice() * cartProduct.getQuantity(); // Ürün fiyatını ve miktarını çarparak
+																					// toplam fiyata ekle
+				}
+		        String formattedTotalPrice = String.format("%.2f", totalPrice);
+				List<PaymentMethod> paymentMethods = paymentMethodDao.getAllPaymentMethods();
+				
+				ModelAndView modelAndView = new ModelAndView("satinal");
+				List<Category> categories = categoryDao.getAllCategories();
+				modelAndView.addObject("categories", categories);
+				modelAndView.addObject("paymentMethods", paymentMethods);
+				modelAndView.addObject("cartProductListings", cartProductListings);
+		        modelAndView.addObject("totalPrice", formattedTotalPrice);
+				return modelAndView;
+			}else {
+
+				response.sendRedirect("/finalodev");
 			}
-	        String formattedTotalPrice = String.format("%.2f", totalPrice);
-			List<PaymentMethod> paymentMethods = paymentMethodDao.getAllPaymentMethods();
 			
-			ModelAndView modelAndView = new ModelAndView("satinal");
-			List<Category> categories = categoryDao.getAllCategories();
-			modelAndView.addObject("categories", categories);
-			modelAndView.addObject("paymentMethods", paymentMethods);
-			modelAndView.addObject("cartProductListings", cartProductListings);
-	        modelAndView.addObject("totalPrice", formattedTotalPrice);
-			return modelAndView;
 		
 		}
 		return new ModelAndView("home");

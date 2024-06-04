@@ -51,7 +51,8 @@ public class AdminController {
 	@RequestMapping(value = "/admin")
 	public ModelAndView admin(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
-		
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
 		HttpSession httpSession = request.getSession();
 		
 		User user = (User) httpSession.getAttribute("user");
@@ -76,6 +77,41 @@ public class AdminController {
 		
 	}
 
+	@RequestMapping(value = "/admin/editProduct/{productId}", method = RequestMethod.POST)
+	public ModelAndView editProduct(@PathVariable("productId") int productId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    HttpSession httpSession = request.getSession();
+	    User sessionUser = (User) httpSession.getAttribute("user");    
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
+	    
+	    if (sessionUser != null && sessionUser.getRole().equals(accessRoleString)) {
+	        Product product = productDao.getProductById(productId);
+	        
+	        if (product != null) {
+	            String newName = request.getParameter("name");
+	            String newPrice = request.getParameter("price");
+	            String newCategoryId = request.getParameter("categoryId");
+	            String newDescription = request.getParameter("description");
+	            String imageUrl = request.getParameter("imageUrl");
+	            String[] priceeString = newPrice.split(" ");
+	            
+	            product.setCategoryId(Integer.parseInt(newCategoryId));
+	            product.setDescription(newDescription);
+	            product.setImageUrl(imageUrl);
+	            product.setName(newName);
+	            product.setPrice(Double.parseDouble(priceeString[0]));
+
+	           productDao.updateProduct(product);
+
+	            response.sendRedirect("/finalodev/admin/products");
+	        } else {
+	            response.sendRedirect("/finalodev/");
+	        }
+	    } else {
+	        response.sendRedirect("/finalodev/");
+	    }
+	    return null;
+	}
 	@RequestMapping(value = "/admin/editUser/{userId}", method = RequestMethod.POST)
 	public ModelAndView editUser(@PathVariable("userId") int userId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 	    HttpSession httpSession = request.getSession();
@@ -128,6 +164,37 @@ public class AdminController {
             response.sendRedirect("/finalodev/");
         }
         return new ModelAndView("home");
+    }	
+	
+	@RequestMapping(value = "/admin/deleteProduct/{productId}", method = RequestMethod.GET)
+    public ModelAndView deleteProd(@PathVariable("productId") int productId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	
+        HttpSession httpSession = request.getSession();
+        User user = (User) httpSession.getAttribute("user");
+
+        if (user != null) {
+            if (user.getRole().equals(accessRoleString)) {
+
+                // Assuming you have a method in your DAO to delete the user by ID
+                productDao.deleteProduct(productId);
+
+				ModelAndView modelAndView = new ModelAndView("adminlistproducts");
+				List<Category> categories = categoryDao.getAllCategories();
+				modelAndView.addObject("categories", categories);
+				List<Product> products = productDao.getAllProducts();
+				modelAndView.addObject("products", products);
+
+
+                return modelAndView;
+
+            } else {
+                response.sendRedirect("/finalodev/");
+            }
+
+        } else {
+            response.sendRedirect("/finalodev/");
+        }
+        return new ModelAndView("home");
     }
 	
 	@RequestMapping(value = "/admin/users")
@@ -164,7 +231,8 @@ public class AdminController {
 	@PostMapping(value = "/admin/products")
 	public void adminproducts(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
-		
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
 		HttpSession httpSession = request.getSession();
 		
 		User user = (User) httpSession.getAttribute("user");
@@ -203,7 +271,8 @@ public class AdminController {
     @GetMapping(value = "/admin/products")
     public ModelAndView prods(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 		HttpSession httpSession = request.getSession();
 		
 		User user = (User) httpSession.getAttribute("user");

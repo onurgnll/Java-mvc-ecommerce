@@ -2,7 +2,8 @@
 <%@page import="com.onur.finalodev.model.Category"%>
 <%@page import="java.util.List"%>
 <%@page import="com.onur.finalodev.model.Product"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="navbar.jsp"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">

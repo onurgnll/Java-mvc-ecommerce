@@ -1,6 +1,7 @@
 <%@page import="com.onur.finalodev.model.OrderProductListing"%>
 <%@include file="navbar.jsp"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@ img {
 </style>
 </head>
 <body>
-	<div class="d-flex justify-content-center">
+	<div class="d-flex justify-content-around flex-wrap">
 		<%
 		List<OrderProductListing> products = (List<OrderProductListing>) request.getAttribute("orderProductListings");
 		if (products != null) {

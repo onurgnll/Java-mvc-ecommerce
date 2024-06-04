@@ -1,6 +1,7 @@
 <%@page import="com.onur.finalodev.model.Product"%>
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="navbar.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,35 +27,54 @@ body{
 	font-family: Arial, sans-serif;
 	background-color: #f0f0f0;
 }
+.price-container {
+	position: relative;
+	cursor: pointer;
+}
 .card-img-top{
 	height: 200px;
 	
     object-fit: contain;
     object-position: center;
 }
-.bthnnn{
-        background-color: #ff1b6b !important;
-        border: none;
+.bthnnn {
+	background-color: #ff1b6b !important;
+	border: none;
+	display: none;
+	border-radius: 10px;
+	 /* Butonu başlangıçta gizleyin */
+}
+.card:hover .price-text {
+	display: none;
+}
+.card:hover{
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4) !important;
+  cursor: pointer;
+  
+  }
+
+.card:hover .bthnnn {
+	display: block; 
+	color: white;
+	background: none;
 }
 </style>
 <body>
-    <h2>Products in Category: <%= request.getAttribute("categoryName") %></h2>
     <div class="d-flex justify-content-around flex-wrap">
 		<%
 		List<Product> products = (List<Product>) request.getAttribute("products");
-		if (products != null) {
+		if (products.size() > 0 ) {
 			for (Product item : products) {
 		%>
 		<form action="/finalodev/addToCart/<%=item.getId()%>" method="post" class="card m-4" style="width: 16rem; border:none; border-radius:20px">
 			<img src="<%= item.getImageUrl() %>"
 				class="card-img-top" alt="...">
-			<div class="card-body">
-				<h5 class="card-title"><%=item.getName()%></h5>
-				<p class="card-text"><%=item.getDescription()%></p>
-				<div class="d-flex justify-content-between align-items-center">
-					<p class="card-text p-0 m-0"><%=item.getPrice()%> TL</p>
-					
-        			<button type="submit"  class="btn btn-primary bthnnn" value="Sepete Ekle">Sepete Ekle</button>
+			<div class="card-body d-flex flex-column align-items-center text-center">
+				<h5 class="card-title fs-3"><%=item.getName()%></h5>
+				<div class="d-flex align-items-center price-container">
+					<p class="card-text p-0 m-0 price-text fs-6"><%=item.getPrice()%> TL</p>
+        			<button type="submit" class="bthnnn py-1 px-3 ">Sepete Ekle</button>
 				</div>
 			</div>
 		</form>
@@ -62,7 +82,11 @@ body{
 			}
 		} else {
 		%>
-			<p>No products available.</p>
+			<div class="w-100 h-100 d-flex align-items-center flex-column">
+			
+				<img class="w-25 h-25" src="https://media1.giphy.com/media/NnSFnC428LRHaxUNzj/giphy.gif?cid=6c09b952ltl3t5dzq6ak95cqp4z7txddlotviteo8trl42zq&ep=v1_gifs_search&rid=giphy.gif&ct=s"></img>
+				<h2>Bu aramada ürün bulunamadı.</h2>
+			</div>
 		<%
 		}
 		%>

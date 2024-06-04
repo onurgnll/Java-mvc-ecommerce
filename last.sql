@@ -73,14 +73,19 @@ CREATE TABLE `paymentmethod` (
     PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `user` ADD FOREIGN KEY (`cartId`) REFERENCES `cart`(`id`);
-ALTER TABLE `product` ADD FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`);
-ALTER TABLE `cart_product` ADD FOREIGN KEY (`cartId`) REFERENCES `cart`(`id`);
-ALTER TABLE `cart_product` ADD FOREIGN KEY (`productId`) REFERENCES `product`(`id`);
-ALTER TABLE `order` ADD FOREIGN KEY (`userId`) REFERENCES `user`(`id`);
-ALTER TABLE `order` ADD FOREIGN KEY (`paymentMethodId`) REFERENCES `paymentmethod`(`id`);
-ALTER TABLE `order_product` ADD FOREIGN KEY (`orderId`) REFERENCES `order`(`id`);
-ALTER TABLE `order_product` ADD FOREIGN KEY (`productId`) REFERENCES `product`(`id`);
+ALTER TABLE `user` 
+    ADD FOREIGN KEY (`cartId`) REFERENCES `cart`(`id`) ON DELETE CASCADE;
+ALTER TABLE `product` 
+    ADD FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`);
+ALTER TABLE `cart_product` 
+    ADD FOREIGN KEY (`cartId`) REFERENCES `cart`(`id`) ON DELETE CASCADE,
+    ADD FOREIGN KEY (`productId`) REFERENCES `product`(`id`) ON DELETE CASCADE;
+ALTER TABLE `order` 
+    ADD FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE CASCADE,
+    ADD FOREIGN KEY (`paymentMethodId`) REFERENCES `paymentmethod`(`id`);
+ALTER TABLE `order_product` 
+    ADD FOREIGN KEY (`orderId`) REFERENCES `order`(`id`) ON DELETE CASCADE,
+    ADD FOREIGN KEY (`productId`) REFERENCES `product`(`id`) ON DELETE CASCADE;
 
 -- Disable foreign key checks
 SET FOREIGN_KEY_CHECKS = 0;

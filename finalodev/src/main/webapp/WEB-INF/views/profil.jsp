@@ -3,7 +3,8 @@
 <%@page import="java.util.List"%>
 <%@page import="com.onur.finalodev.model.User"%>
 <%@include file="navbar.jsp"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
