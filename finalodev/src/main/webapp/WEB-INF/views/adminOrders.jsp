@@ -20,7 +20,7 @@ body {
 }
 
 img {
-	height: 20vh;
+	height: 50px;
 	object-fit: cover;
 	object-position: center;
 	border-radius: 15px;
@@ -29,7 +29,6 @@ img {
 </head>
 <body>
 	<div class="d-flex justify-content-center">
-
 		<%
 		List<OrderProductListing> products = (List<OrderProductListing>) request.getAttribute("orderProductListings");
 		if (products != null) {
@@ -37,7 +36,7 @@ img {
 		%>
 		<div
 			class="d-flex justify-content-between align-items-center my-4 ms-3 "
-			style="height: 20vh; width: 85%; background-color: #E5EDF2; border-radius: 15px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+			style="height: 20vh; width: 85%; background-color: white; border-radius: 15px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
 			<div style="">
 				<img alt=""
 					src="https://iis-akakce.akamaized.net/p.x?%2F%2Fcdn.dsmcdn.com%2Fty1256%2Fproduct%2Fmedia%2Fimages%2Fprod%2FPIM%2F20240413%2F12%2F568b04ff-510d-48ca-bbdc-78e977e4b0c6%2F1_org_zoom.jpg">
@@ -59,6 +58,5 @@ img {
 	</div>
 </body>
 </html>
-
 </body>
 </html>

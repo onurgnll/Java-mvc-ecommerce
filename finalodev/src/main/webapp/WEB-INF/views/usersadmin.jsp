@@ -49,7 +49,7 @@ body {
 			for (User userAdmin : usersAdmin) {
 		%>
 		<form action="/finalodev/admin/editUser/<%=userAdmin.getId()%>"
-			method="post" class="card m-2 " style="width: 16rem;">
+			method="post" class="card m-2 " style="width: 16rem; border:none; border-radius:15px">
 			<div class="d-flex justify-content-center">
 				<img alt=""
 					src="https://cdn.pixabay.com/photo/2016/04/15/18/05/computer-1331579_640.png"

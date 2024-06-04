@@ -13,7 +13,8 @@
     body {
         font-family: Arial, sans-serif !important;
         background-color: #f0f0f0 !important;
-    }.card-img-top {
+    }
+    .card-img-top {
 	height: 200px;
 	object-fit: contain;
 	object-position: center;
@@ -28,11 +29,6 @@
 	 /* Butonu başlangıçta gizleyin */
 }
 
-/* Hover efekti için yeni CSS */
-.price-container {
-	position: relative;
-	cursor: pointer;
-}
 
 </style>
 <body>
@@ -42,15 +38,26 @@
 		if (products != null) {
 			for (Product item : products) {
 		%>
-		<form action="/finalodev/addToCart/<%=item.getId()%>" method="post" class="card m-4" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);width: 15rem; border:none; border-radius:20px">
+		<form action="/finalodev/addToCart/<%=item.getId()%>" method="post" class="card m-4" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);width: 16rem; height:20rem; border:none; border-radius:20px">
 			<img src="<%= item.getImageUrl() %>"
 				class="card-img-top" alt="...">
-			<div class="card-body d-flex-column align-items-center ms-4">
-				<h5 class="card-title fs-3"><%=item.getName()%></h5>
-				<div class="d-flex justify-content-between align-items-center price-container">
-					<p class="card-text p-0 m-0 price-text fs-6"><%=item.getPrice()%> TL</p>
-        			<button type="submit" class="bthnnn py-1 px-3 ">Sepete Ekle</button>
+			<div class="card-body d-flex-column  ms-4">
+
+				<input name="name" value="<%=item.getName()%>"
+					class="card-title text-center"
+					style="border: none; font-weight: bold; witdh:10rem">
+				<input
+					name="email" value="<%=item.getDescription()%>"
+					style="border: none">
+				<input name="name" value="<%=item.getPrice()%> TL" style="border: none;" class="mb-2">
+				<div class="d-flex justify-content-between align-items-center">
+					<div>
+						<button type="submit" class="btn btn-primary bthnnn py-1">Düzenle</button>
+						<a href="<%=item.getId()%>"
+							class="btn btn-primary bthnnn py-1">Sil</a>
+					</div>
 				</div>
+			
 			</div>
 		</form>
 		<%
