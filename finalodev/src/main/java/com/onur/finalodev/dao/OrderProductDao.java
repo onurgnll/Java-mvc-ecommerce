@@ -39,6 +39,21 @@ public class OrderProductDao {
         });
     }
 
+    public List<OrderProduct> getOrderProductsByOrderId(int orderId) {
+        String sqlGetOrderProductsByUserId = 
+            "SELECT op.* FROM order_product op " +
+            "JOIN `order` o ON op.orderId = o.id " +
+            "WHERE op.orderId = ?";
+        
+        return jdbcTemplate.query(sqlGetOrderProductsByUserId, new Object[]{orderId}, (rs, rowNum) -> {
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setOrderId(rs.getInt("orderId"));
+            orderProduct.setProductId(rs.getInt("productId"));
+            orderProduct.setQuantity(rs.getInt("quantity"));
+            return orderProduct;
+        });
+    }
+
     public void addOrderProduct(OrderProduct orderProduct) {
         String sqlInsertOrderProduct = "INSERT INTO order_product (orderId, productId, quantity) VALUES (?, ?, ?)";
         jdbcTemplate.update(sqlInsertOrderProduct, new PreparedStatementSetter() {

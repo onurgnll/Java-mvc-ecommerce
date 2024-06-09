@@ -2,7 +2,10 @@ package com.onur.finalodev.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,12 +23,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.onur.finalodev.dao.CategoryDao;
 import com.onur.finalodev.dao.OrderDao;
 import com.onur.finalodev.dao.OrderProductDao;
+import com.onur.finalodev.dao.PaymentMethodDao;
 import com.onur.finalodev.dao.ProductDao;
 import com.onur.finalodev.dao.UserDao;
 import com.onur.finalodev.model.Category;
 import com.onur.finalodev.model.Order;
 import com.onur.finalodev.model.OrderProduct;
 import com.onur.finalodev.model.OrderProductListing;
+import com.onur.finalodev.model.PaymentMethod;
 import com.onur.finalodev.model.Product;
 import com.onur.finalodev.model.User;
 
@@ -44,6 +49,8 @@ public class AdminController {
     
     @Autowired
     private OrderDao orderDao;
+    @Autowired
+    private PaymentMethodDao paymentMethodDao;
     
     @Autowired
     private OrderProductDao orderProductDao;
@@ -400,12 +407,61 @@ public class AdminController {
 		User user = (User) httpSession.getAttribute("user");
 		if(user != null) {
 			if(user.getRole().equals(accessRoleString)) {
+				
+				Map<Order, Object[]> map = new HashMap<Order, Object[]>();
+				List<Order> orders = orderDao.getAllOrders();
+				
+				/*
+				for (Order order: orders) {
+					ArrayList<OrderProduct> orderProduct = (ArrayList<OrderProduct>) orderProductDao.getOrderProductsByOrderId(order.getId());
+					User orderUser = userDao.getUserById(order.getUserId());
+					PaymentMethod paymentMethod = paymentMethodDao.getPaymentMethodById(order.getPaymentMethodId());
+					
+					map.put(order,[orderProduct]);
+					
+				}*/
+				
+				for (Order order : orders) {
+					User orderUser = userDao.getUserById(order.getUserId());
+					PaymentMethod paymentMethod = paymentMethodDao.getPaymentMethodById(order.getPaymentMethodId());
+
+					
+					
+					ArrayList<OrderProduct> orderProducts = (ArrayList<OrderProduct>) orderProductDao.getOrderProductsByOrderId(order.getId());
+					List<OrderProductListing> orderProductListings = new ArrayList<OrderProductListing>();
+					
+					for (OrderProduct orderProduct : orderProducts) {
+						
+						Product product =  productDao.getProductById(orderProduct.getProductId());
+						
+						orderProductListings.add(new OrderProductListing(orderProduct.getQuantity() ,product , order));
+						
+					}
+					
+					
+	                Object[] orderDetails = {orderProductListings, orderUser, paymentMethod};
+	                
+					map.put(order, orderDetails);
+					
+				}
+
+				List<User> users = userDao.getAllUsers();
+				ModelAndView modelAndView = new ModelAndView("adminOrders");
+				modelAndView.addObject("orders", map);
+				List<Category> categories = categoryDao.getAllCategories();
+				modelAndView.addObject("categories", categories);
+				modelAndView.addObject("users", users);
+				return modelAndView;
+				
+				/*
+				for (Map.Entry<Order, ArrayList<OrderProduct>> entry : map.entrySet()) {
+			        System.out.println(entry.getKey().getAddress() + ":" + entry.getValue());
+			    }
+				
+				
 
 				List<OrderProductListing> orderProductListings = new ArrayList<OrderProductListing>();
 				
-				List<OrderProduct> orderProducts = orderProductDao.getAllOrderProducts();
-				
-			
 				for (OrderProduct orderProduct : orderProducts) {
 					
 					Product product =  productDao.getProductById(orderProduct.getProductId());
@@ -414,6 +470,9 @@ public class AdminController {
 					orderProductListings.add(new OrderProductListing(orderProduct.getQuantity() ,product , order));
 					
 				}
+				List<OrderProduct> orderProducts = orderProductDao.getAllOrderProducts();
+				
+			
 
 				List<User> users = userDao.getAllUsers();
 				ModelAndView modelAndView = new ModelAndView("adminOrders");
@@ -423,7 +482,7 @@ public class AdminController {
 				modelAndView.addObject("users", users);
 
 
-				return modelAndView;
+				return modelAndView;*/
 				
 			}else {
 				response.sendRedirect("/finalodev/");
@@ -436,6 +495,60 @@ public class AdminController {
 		return new ModelAndView("home");
 		
 	}
+    
+    
+    @RequestMapping(value = "/admin/approveOrder/{id}", method = RequestMethod.GET)
+    public ModelAndView approveOrder(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	
+        HttpSession httpSession = request.getSession();
+        User user = (User) httpSession.getAttribute("user");
+
+        if (user != null) {
+            if (user.getRole().equals(accessRoleString)) {
+
+            	Order order = orderDao.getOrderById(id);
+            	
+            	order.setStatus("ONAYLANDI");
+            	
+            	orderDao.updateOrder(order);
+
+                response.sendRedirect("/finalodev/admin/orders");
+
+            } else {
+                response.sendRedirect("/finalodev/");
+            }
+
+        } else {
+            response.sendRedirect("/finalodev/");
+        }
+        return new ModelAndView("home");
+    }
+    @RequestMapping(value = "/admin/denyOrder/{id}", method = RequestMethod.GET)
+    public ModelAndView denyOrder(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	
+        HttpSession httpSession = request.getSession();
+        User user = (User) httpSession.getAttribute("user");
+
+        if (user != null) {
+            if (user.getRole().equals(accessRoleString)) {
+
+            	Order order = orderDao.getOrderById(id);
+            	
+            	order.setStatus("REDDEDILDI");
+            	
+            	orderDao.updateOrder(order);
+
+                response.sendRedirect("/finalodev/admin/orders");
+
+            } else {
+                response.sendRedirect("/finalodev/");
+            }
+
+        } else {
+            response.sendRedirect("/finalodev/");
+        }
+        return new ModelAndView("home");
+    }
     
     @GetMapping(value = "/admin/createCategory")
     public ModelAndView admincategorys(HttpServletRequest request, HttpServletResponse response) throws IOException {

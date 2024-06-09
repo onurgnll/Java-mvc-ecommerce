@@ -1,7 +1,13 @@
+<%@page import="com.onur.finalodev.model.PaymentMethod"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.onur.finalodev.model.OrderProduct"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.onur.finalodev.model.Order"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.onur.finalodev.model.OrderProductListing"%>
 <%@include file="navbar.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,35 +35,84 @@ img {
 </style>
 </head>
 <body>
-	<div class="d-flex justify-content-around flex-wrap">
+	<div class="d-flex justify-content-around flex-wrap w-100">
 		<%
-		List<OrderProductListing> products = (List<OrderProductListing>) request.getAttribute("orderProductListings");
-		if (products != null) {
-			for (OrderProductListing item : products) {
+		Map<Order, Object[]> orders = (Map<Order, Object[]>) request.getAttribute("orders");
+
+		if (orders != null) {
+			for (Map.Entry<Order, Object[]> entry : orders.entrySet()) {
+				Order order = entry.getKey();
+				Object[] orderDetails = entry.getValue();
+				User orderUser = (User) orderDetails[1];
+				List<OrderProductListing> orderProductListings = (List<OrderProductListing>) orderDetails[0];
+				PaymentMethod paymentMethod = (PaymentMethod) orderDetails[2];
 		%>
 		<div
-			class="d-flex justify-content-between align-items-center my-4 ms-3 "
-			style="height: 20vh; width: 85%; background-color: white; border-radius: 15px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-			<div style="">
-				<img alt=""
-					src="https://iis-akakce.akamaized.net/p.x?%2F%2Fcdn.dsmcdn.com%2Fty1256%2Fproduct%2Fmedia%2Fimages%2Fprod%2FPIM%2F20240413%2F12%2F568b04ff-510d-48ca-bbdc-78e977e4b0c6%2F1_org_zoom.jpg">
-			</div>
-			<span><%= item.getProduct().getName() %> siparişiniz var.</span>
-			<div class="me-5">
-				<button type="button" class="btn btn-success px-4">Onayla</button>
-				<button type="button" class="btn btn-danger px-4">Reddet</button>
+			class="d-flex flex-column align-items-center p-2"
+			style=" background-color: white; border-radius: 15px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+			<span class="fw-bold fs-4"><%= entry.getKey().getId() %> Idli sipariş</span>
+			
+			<span class="fw-bold fs-6 mt-2">Kişi bilgileri</span>
+			<span><%= orderUser.getName() %></span>
+			<span><%= orderUser.getEmail() %></span>
+			
+			
+			<span class="fw-bold fs-6 mt-3">Sipariş bilgileri</span>
+			<span><%= order.getAddress() %></span>
+			<span><%= order.getCreatedAt() %></span>
+			<span><%= order.getTotalPrice()%></span>
+			<span><%= paymentMethod.getName() %></span>
+			
+			
+			<span class="fw-bold fs-6 mt-3">Ürün bilgileri</span>
+			
+			<%
+				for(OrderProductListing orderProductListing: orderProductListings){
+					%>
+					<span><%= orderProductListing.getQuantity() %>x <%= orderProductListing.getProduct().getName() %></span>
+					<%
+				}
+			%>
+			
+			<span class="fw-bold fs-6 mt-3">Sipariş durumu</span>
+			<%
+				if(order.getStatus().equals("BEKLIYOR")){
+					%>
+					
+			<span class="fw-bold fs-6 mt-3">BEKLİYOR</span>
+					
+					<%
+				}
+			
+				if(order.getStatus().equals("ONAYLANDI")){
+					%>
+					
+			<span class="fw-bold fs-6 mt-3">ONAYLANDI</span>
+					
+					<%
+				}
+			
+				if(order.getStatus().equals("REDDEDILDI")){
+					%>
+					
+			<span class="fw-bold fs-6 mt-3">REDDEDILDI</span>
+					
+					<%
+				}
+			%>
+			
+			<div <%
+				if(!order.getStatus().equals("BEKLIYOR")){%>class="d-none"<%}%>>
+				<a href="/finalodev/admin/approveOrder/<%= order.getId() %>" type="button" class="btn btn-success px-4">Onayla</a>
+				<a href="/finalodev/admin/denyOrder/<%= order.getId() %>" type="button" class="btn btn-danger px-4">Reddet</a>
 			</div>
 		</div>
-		<%
-			}
-		} else {
-		%>
-			<p>Mevcut ürün bulunmamaktadır.</p>
+
 		<%
 		}
+		}
 		%>
+
 	</div>
-</body>
-</html>
 </body>
 </html>

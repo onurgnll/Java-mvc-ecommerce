@@ -36,7 +36,7 @@ body {
 }
 </style>
 <body>
-	<div class="d-flex justify-content-around flex-wrap">
+	<div class="d-flex justify-content-around flex-wrap a">
 		<%
 		List<Product> products = (List<Product>) request.getAttribute("products");
 		if (products != null) {
@@ -92,7 +92,7 @@ body {
 		}
 		} else {
 		%>
-		<p>Mevcut ürün bulunmamaktadır.</p>
+		<p>Mevcut ürün bulunmamaktadır.a</p>
 		<%
 		}
 		%>

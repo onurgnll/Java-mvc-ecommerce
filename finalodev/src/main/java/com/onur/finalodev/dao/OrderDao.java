@@ -32,6 +32,7 @@ public class OrderDao {
             order.setTotalPrice(rs.getDouble("totalPrice"));
             order.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
             order.setAddress(rs.getString("address"));
+            order.setStatus(rs.getString("status"));
             order.setPaymentMethodId(rs.getInt("paymentMethodId"));
             return order;
         });
@@ -46,6 +47,7 @@ public class OrderDao {
             order.setTotalPrice(rs.getDouble("totalPrice"));
             order.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
             order.setAddress(rs.getString("address"));
+            order.setStatus(rs.getString("status"));
             order.setPaymentMethodId(rs.getInt("paymentMethodId"));
             return order;
         });
