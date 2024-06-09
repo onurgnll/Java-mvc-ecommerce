@@ -77,5 +77,17 @@ public class HomeController {
 
         return modelAndView;
     }
+    @RequestMapping(value = "/urun/{id}")
+    public ModelAndView productDetail(@PathVariable String id,HttpServletRequest request, HttpServletResponse response) throws IOException {
+       
+        Product product = productDao.getProductById(Integer.parseInt(id));
+        List<Category> categories = categoryDao.getAllCategories();
+        ModelAndView modelAndView = new ModelAndView("productDetails");
+        
+        modelAndView.addObject("categories", categories);
+        modelAndView.addObject("product", product);
+
+        return modelAndView;
+    }
     
 }
