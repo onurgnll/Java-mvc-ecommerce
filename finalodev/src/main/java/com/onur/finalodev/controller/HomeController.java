@@ -36,10 +36,7 @@ public class HomeController {
     private CartProductDao cartProductDao;
 	@GetMapping(value = "/")
 	public ModelAndView test(HttpServletResponse response) throws IOException {
-		// Kategorileri DAO sınıfından alın
 		
-		// Ürünleri DAO sınıfından alın
-
 		ModelAndView modelAndView = new ModelAndView("home");
 		List<Category> categories = categoryDao.getAllCategories();
 		modelAndView.addObject("categories", categories);

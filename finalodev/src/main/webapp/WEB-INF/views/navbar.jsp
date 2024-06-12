@@ -139,14 +139,14 @@
 					User user = (User) session.getAttribute("user");
 					if (user != null) {
 					%>
-					<a href="/finalodev/sepet" class="button"><i class="fas fa-solid fa-shopping-cart"></i></a> <a
-						href="/finalodev/profil" class="button mx-2"><i class="fas fa-solid fa-user"></i></a>
+					<a href="/finalodev/sepet" class="button"><i class="fas fa-solid fa-shopping-cart"></i> Sepet</a>
+					<a href="/finalodev/profil" class="button mx-2"><i class="fas fa-solid fa-user"></i> Hesabım</a>
 
 					<%
 					if (user.getRole().equals("USER")) {
 					%>
 
-					<a href="/finalodev/admin" class="button mx-2"><i class="fa-solid fa-user-gear"></i></a>
+					<a href="/finalodev/admin" class="button mx-2"><i class="fa-solid fa-user-gear"></i> Yönetici</a>
 					<%
 					}
 

@@ -70,8 +70,6 @@ body {
         <div class="card m-4 d-flex justify-content-between"
             style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);width: 15rem; border:none; border-radius:20px"
             onclick="location.href='/finalodev/urun/<%= item.getId() %>'">
-            
-
             <img src="<%= item.getImageUrl() %>" class="card-img-top" alt="...">
             <div class="card-body d-flex flex-column align-items-center text-center">
                 <h5 class="card-title fs-3"><%= item.getName() %></h5>
