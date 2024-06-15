@@ -27,6 +27,12 @@ body {
     object-fit: contain;
     object-position: center;
 }
+.bthnnn {
+	background-color: #ff1b6b !important;
+	border: none;
+	border-radius: 10px;
+	color:white;
+}
 </style>
 </head>
 <body>
@@ -37,9 +43,12 @@ body {
     <div class="card">
         <img src="<%= product.getImageUrl() %>" class="card-img-top" alt="<%= product.getName() %>">
         <div class="card-body text-center">
-            <h5 class="card-title"><%= product.getName() %></h5>
+            <h5 class="card-title fw-semibold"><%= product.getName() %></h5>
             <p class="card-text"><%= product.getDescription() %></p>
             <p class="card-text"><strong>Fiyat: </strong><%= product.getPrice() %> TL</p>
+            <form action="/finalodev/addToCart/<%= product.getId() %>" method="post">
+                <button type="submit" class="bthnnn py-1 px-4">Sepete Ekle</button>
+            </form>
         </div>
     </div>
     <%

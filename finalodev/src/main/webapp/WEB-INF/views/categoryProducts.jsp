@@ -29,7 +29,6 @@ body {
 	height: 200px;
 	object-fit: contain;
 	object-position: center;
-	padding:10px;
 	border-radius:20px;
 }
 
@@ -72,11 +71,11 @@ body {
 		%>
 		<form action="/finalodev/addToCart/<%=item.getId()%>" method="post" class="card m-4" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);width: 15rem; border:none; border-radius:20px">
 			<img src="<%= item.getImageUrl() %>"
-				class="card-img-top" alt="...">
+				class="card-img-top p-3" alt="...">
 			<div class="card-body d-flex flex-column align-items-center">
 				<h5 class="card-title fs-3"><%=item.getName()%></h5>
 				<div class="d-flex justify-content-between align-items-center price-container">
-					<p class="card-text p-0 m-0 price-text fs-6"><%=item.getPrice()%> TL</p>
+					<p class="card-text p-0 m-1 price-text fs-6"><%=item.getPrice()%> TL</p>
         			<button type="submit" class="bthnnn py-1 px-3 ">Sepete Ekle</button>
 				</div>
 			</div>

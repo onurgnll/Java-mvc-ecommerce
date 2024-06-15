@@ -33,7 +33,7 @@ body {
 .product-description,
 .product-price,
 .product-quantity {
-    margin-bottom: 0.5rem; /* Her bir satır arasına boşluk ekler */
+ margin-bottom: 0.5rem; 
 }
 
 .product-price {

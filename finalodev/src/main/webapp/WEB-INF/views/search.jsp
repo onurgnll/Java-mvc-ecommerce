@@ -69,11 +69,11 @@ body{
 		%>
 		<form action="/finalodev/addToCart/<%=item.getId()%>" method="post" class="card m-4" style="width: 16rem; border:none; border-radius:20px">
 			<img src="<%= item.getImageUrl() %>"
-				class="card-img-top" alt="...">
+				class="card-img-top p-3" alt="...">
 			<div class="card-body d-flex flex-column align-items-center text-center">
 				<h5 class="card-title fs-3"><%=item.getName()%></h5>
 				<div class="d-flex align-items-center price-container">
-					<p class="card-text p-0 m-0 price-text fs-6"><%=item.getPrice()%> TL</p>
+					<p class="card-text p-0 m-1 price-text fs-6"><%=item.getPrice()%> TL</p>
         			<button type="submit" class="bthnnn py-1 px-3 ">Sepete Ekle</button>
 				</div>
 			</div>
@@ -83,7 +83,6 @@ body{
 		} else {
 		%>
 			<div class="w-100 h-100 d-flex align-items-center flex-column">
-			
 				<img class="w-25 h-25" src="https://media1.giphy.com/media/NnSFnC428LRHaxUNzj/giphy.gif?cid=6c09b952ltl3t5dzq6ak95cqp4z7txddlotviteo8trl42zq&ep=v1_gifs_search&rid=giphy.gif&ct=s"></img>
 				<h2>Bu aramada ürün bulunamadı.</h2>
 			</div>

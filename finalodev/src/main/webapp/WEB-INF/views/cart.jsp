@@ -96,8 +96,9 @@ body {
 					for (CartProductListing item : cartProductListings) {
 				%>
 				<div class="d-flex justify-content-between mx-5">
-					<span> <%=item.getProduct().getName()%></span> <span> <%=item.getProduct().getPrice()%></span>
-					<span> <%=item.getQuantity()%></span>
+					<span> <%=item.getProduct().getName()%></span>
+					<span> <%=item.getProduct().getPrice()%> TL</span>
+					<span> <%=item.getQuantity()%> Adet</span>
 				</div>
 				<%
 				}
