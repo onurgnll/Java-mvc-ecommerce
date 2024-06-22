@@ -50,13 +50,13 @@ public class CartController {
 
 			List<CartProductListing> cartProductListings = new ArrayList<CartProductListing>();
 
-			double totalPrice = 0.0; // Toplam fiyatı hesaplamak için değişken
+			double totalPrice = 0.0; 
 
 			for (CartProduct cartProduct : cartProducts) {
 				Product product = productDao.getProductById(cartProduct.getProductId());
 				cartProductListings.add(new CartProductListing(product, cartProduct.getQuantity()));
-				totalPrice += product.getPrice() * cartProduct.getQuantity(); // Ürün fiyatını ve miktarını çarparak
-																				// toplam fiyata ekle
+				totalPrice += product.getPrice() * cartProduct.getQuantity(); 
+																			
 			}
 
 			String formattedTotalPrice = String.format("%.2f", totalPrice);
@@ -95,7 +95,6 @@ public class CartController {
 
 			} catch (Exception e) {
 				System.out.println(e);
-				// TODO: handle exception
 			}
 
 		} else {
@@ -130,7 +129,6 @@ public class CartController {
 
 			} catch (Exception e) {
 				System.out.println(e);
-				// TODO: handle exception
 			}
 
 		} else {
@@ -156,7 +154,7 @@ public class CartController {
 
 			} catch (Exception e) {
 				System.out.println(e);
-				// TODO: handle exception
+				
 			}
 
 		} else {

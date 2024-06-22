@@ -1,3 +1,4 @@
+<%@page import="com.onur.finalodev.model.PaymentMethod"%>
 <%@include file="navbar.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -70,12 +71,12 @@ input {
 
 			<div class="d-flex flex-column">
 
-				<span class="p-2 fw-bold">KAYITLI KATEGORİLER</span>
+				<span class="p-2 fw-bold">KAYITLI ÖDEME YÖNTEMLERİ</span>
 				 <select>
 				 <% 
-		//List<Category> categories = (List<Category>) request.getAttribute("categories");
-		if (categories != null) {
-			for (Category item : categories) {
+		List<PaymentMethod> paymentMethods = (List<PaymentMethod>) request.getAttribute("paymentMethods");
+		if (paymentMethods != null) {
+			for (PaymentMethod item : paymentMethods) {
 				
 		%>
 					<option><%= item.getName() %></option>
@@ -84,12 +85,12 @@ input {
 
 			</div>
 
-			<form class="formm" action="/finalodev/admin/newCategories"
+			<form class="formm" action="/finalodev/admin/newOdemeYontemi"
 				method="post">
 				<div class="inpdiv">
-					<span class="p-2 fw-bold">YENİ KATEGORİ OLUŞTUR</span> <input
-						type="text" id="categoryId" name="categoryName" required
-						placeholder="Yeni Kategori İsmini Giriniz" /><br />
+					<span class="p-2 fw-bold">YENİ ÖDEME YÖNTEMİ OLUŞTUR</span> <input
+						type="text" id="categoryId" name="paymentName" required
+						placeholder="Yeni Ödeme İsmini Giriniz" /><br />
 				</div>
 				<button class="button1" type="submit">Oluştur</button>
 			</form>

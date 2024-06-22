@@ -69,6 +69,7 @@ body {
 					<span><span class="fw-semibold fw-4	">Email: </span><%= orderUser.getEmail() %></span>
 					<span><span class="fw-semibold fw-4	">Adres: </span><%= order.getAddress() %></span>
 					<span><span class="fw-semibold fw-4	">Ödeme Yöntemi: </span><%= paymentMethod.getName() %></span>
+					<span><span class="fw-semibold fw-4	">Sipariş Zamanı: </span><%= order.getCreatedAt().toString() %></span>
 				</div>
 				<div class="d-flex flex-column ">
 					<span class="fw-bold fs-5 ms-3 mb-1">Sipariş No: #<%= order.getId() %></span>
@@ -104,7 +105,7 @@ body {
     <div class="d-flex flex-column ">
         <span class="product-name"><%= orderProductListing.getProduct().getName() %></span>
         <span class="product-description"><%= orderProductListing.getProduct().getDescription() %></span>
-        <span class="product-price" style="color:#FF1B6B"><%= orderProductListing.getProduct().getPrice() %> * <%= orderProductListing.getQuantity() %> TL</span>
+        <span class="product-price" style="color:#FF1B6B"><%= orderProductListing.getProduct().getPrice() %> x <%= orderProductListing.getQuantity() %> = <%= orderProductListing.getProduct().getPrice() *  orderProductListing.getQuantity() %> TL</span>
         <span class="product-quantity"><span class="fw-semibold fw-4">Adet: </span><%= orderProductListing.getQuantity() %></span>
     </div>
     <hr />

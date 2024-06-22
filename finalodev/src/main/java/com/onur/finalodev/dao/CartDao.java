@@ -43,7 +43,6 @@ public class CartDao {
         jdbcTemplate.update(sqlInsertCart, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
-                // No values to set, as it's auto-increment
             }
         });
     }

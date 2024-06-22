@@ -86,7 +86,20 @@ public class OrderDao {
             }
         });
     }
-
+    public List<Order> getOrdersByUserId(int userId) {
+        String sqlGetOrdersByUserId = "SELECT * FROM `order` WHERE userId = ?";
+        return jdbcTemplate.query(sqlGetOrdersByUserId, new Object[]{userId}, (rs, rowNum) -> {
+            Order order = new Order();
+            order.setId(rs.getInt("id"));
+            order.setUserId(rs.getInt("userId"));
+            order.setTotalPrice(rs.getDouble("totalPrice"));
+            order.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+            order.setAddress(rs.getString("address"));
+            order.setStatus(rs.getString("status"));
+            order.setPaymentMethodId(rs.getInt("paymentMethodId"));
+            return order;
+        });
+    }
     public void deleteOrder(int orderId) {
         String sqlDeleteOrder = "DELETE FROM `order` WHERE id = ?";
         jdbcTemplate.update(sqlDeleteOrder, orderId);

@@ -96,7 +96,6 @@ public class ProductDao {
         });
     }
 
-    // New method to get products by name
     public List<Product> getProductsByName(String name) {
         String sqlGetProductsByName = "SELECT * FROM product WHERE name LIKE ?";
         return jdbcTemplate.query(sqlGetProductsByName, new Object[]{"%" + name + "%"}, (rs, rowNum) -> {

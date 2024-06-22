@@ -123,8 +123,8 @@ input::placeholder {
 
 	</div>
 	<%
-	String message = (String) request.getAttribute("message"); // List<String> türüne dönüştürüldü
-	if (message != null) { // Null check eklenerek hata önlemi yapıldı
+	String message = (String) request.getAttribute("message"); 
+	if (message != null) { 
 	%>
 	<span><%=message%></span>
 	<%

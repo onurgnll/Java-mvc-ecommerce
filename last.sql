@@ -91,18 +91,20 @@ ALTER TABLE `order_product`
 SET FOREIGN_KEY_CHECKS = 0;
 -- Kullanıcı verilerini ekleyin
 INSERT INTO `user` (`name`, `email`, `password`, `role`, `cartId`) VALUES
-('Ahmet Yılmaz', 'ahmet@example.com', 'sifre123', 'KULLANICI', 1),
-('Ayşe Kaya', 'ayse@example.com', 'sifre456', 'KULLANICI', 2),
-('Fatma Öztürk', 'fatma@example.com', 'sifre789', 'KULLANICI', 3),
-('Mehmet Demir', 'mehmet@example.com', 'sifre101112', 'KULLANICI', 4),
-('Zeynep Kocaman', 'zeynep@example.com', 'sifre131415', 'KULLANICI', 5),
-('Emirhan Tekin', 'emirhan@example.com', 'sifre161718', 'KULLANICI', 6),
-('İrem Yıldırım', 'irem@example.com', 'sifre192021', 'KULLANICI', 7),
-('Can Özdemir', 'can@example.com', 'sifre222324', 'KULLANICI', 8),
-('Yusuf Şahin', 'yusuf@example.com', 'sifre252627', 'KULLANICI', 9),
-('Gizem Aslan', 'gizem@example.com', 'sifre282930', 'KULLANICI', 10);
+('Ahmet Yılmaz', 'ahmet@example.com', 'sifre123', 'USER', 1),
+('Ayşe Kaya', 'ayse@example.com', 'sifre456', 'USER', 2),
+('Fatma Öztürk', 'fatma@example.com', 'sifre789', 'USER', 3),
+('Mehmet Demir', 'mehmet@example.com', 'sifre101112', 'USER', 4),
+('Zeynep Kocaman', 'zeynep@example.com', 'sifre131415', 'USER', 5),
+('Emirhan Tekin', 'emirhan@example.com', 'sifre161718', 'USER', 6),
+('İrem Yıldırım', 'irem@example.com', 'sifre192021', 'USER', 7),
+('Can Özdemir', 'can@example.com', 'sifre222324', 'USER', 8),
+('Yusuf Şahin', 'yusuf@example.com', 'sifre252627', 'USER', 9),
+('Gizem Aslan', 'gizem@example.com', 'sifre282930', 'USER', 10),
+('Admin', 'admin@admin.com', '123456', 'ADMIN', 11);
 
 -- Sepet verilerini ekleyin
+INSERT INTO `cart` VALUES (NULL);
 INSERT INTO `cart` VALUES (NULL);
 INSERT INTO `cart` VALUES (NULL);
 INSERT INTO `cart` VALUES (NULL);

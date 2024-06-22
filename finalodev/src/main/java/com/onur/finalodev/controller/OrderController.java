@@ -72,13 +72,13 @@ public class OrderController {
 
 				List<CartProductListing> cartProductListings = new ArrayList<CartProductListing>();
 
-				double totalPrice = 0.0; // Toplam fiyatı hesaplamak için değişken
+				double totalPrice = 0.0; 
 
 				for (CartProduct cartProduct : cartProducts) {
 					Product product = productDao.getProductById(cartProduct.getProductId());
 					cartProductListings.add(new CartProductListing(product, cartProduct.getQuantity()));
-					totalPrice += product.getPrice() * cartProduct.getQuantity(); // Ürün fiyatını ve miktarını çarparak
-																					// toplam fiyata ekle
+					totalPrice += product.getPrice() * cartProduct.getQuantity(); 
+																				
 				}
 		        String formattedTotalPrice = String.format("%.2f", totalPrice);
 				List<PaymentMethod> paymentMethods = paymentMethodDao.getAllPaymentMethods();
@@ -99,42 +99,7 @@ public class OrderController {
 		}
 		return new ModelAndView("home");
 	}
-	@GetMapping(value = "/siparislerim")
-	public ModelAndView spiraislerim(HttpServletRequest request,HttpServletResponse response) throws IOException {
-
-		HttpSession httpSession = request.getSession();
-
-		User user = (User) httpSession.getAttribute("user");
-		if (user != null) {
-			
-			List<OrderProductListing> orderProductListings = new ArrayList<OrderProductListing>();
-			
-			List<OrderProduct> orderProducts = orderProductDao.getOrderProductsByUserId(user.getId());
-			
-		
-			for (OrderProduct orderProduct : orderProducts) {
-				
-				Product product =  productDao.getProductById(orderProduct.getProductId());
-				Order order = orderDao.getOrderById(orderProduct.getOrderId());
-				
-				orderProductListings.add(new OrderProductListing(orderProduct.getQuantity() ,product , order));
-				
-			}
-
-			ModelAndView modelAndView = new ModelAndView("siparislerim");
-			List<Category> categories = categoryDao.getAllCategories();
-			modelAndView.addObject("categories", categories);
-			modelAndView.addObject("orderProductListings",orderProductListings);
-			return modelAndView;
-			
-			
-		
-		}else {
-
-			response.sendRedirect("/finalodev/");
-		}
-		return new ModelAndView("home");
-	}
+	
 	
 	@PostMapping(value = "/satinalpost")
 	public ModelAndView satinalPost(HttpServletRequest request,HttpServletResponse response) throws IOException {
@@ -148,7 +113,7 @@ public class OrderController {
 
 			List<CartProductListing> cartProductListings = new ArrayList<CartProductListing>();
 
-			double totalPrice = 0.0; // Toplam fiyatı hesaplamak için değişken
+			double totalPrice = 0.0; 
 
 			for (CartProduct cartProduct : cartProducts) {
 				Product product = productDao.getProductById(cartProduct.getProductId());

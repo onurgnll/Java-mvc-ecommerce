@@ -36,6 +36,19 @@ body {
 }
 </style>
 <body>
+
+		<div >
+		
+				<form  action="/finalodev/admin/ara" method="post" class="search-box ml-5 mt-3  ms-3">
+
+					<label  style="background-color: white"> 
+					
+						<input  style="background-color: white" type="text" placeholder="Admin Ürün Ara" name="name" class="search-input" />
+						<i class="fas fa-search search-icon"></i>
+
+					</label>
+				</form>
+		</div>
 	<div class="d-flex justify-content-around flex-wrap a">
 		<%
 		List<Product> products = (List<Product>) request.getAttribute("products");

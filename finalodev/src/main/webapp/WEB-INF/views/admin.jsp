@@ -98,9 +98,9 @@
                 </a>
             </div>
             <div class="col-md-4 d-flex justify-content-center">
-                <a class="boxadmin" href="/finalodev/admin/returns">
-                    <img src="https://teldukkani.com/wp-content/uploads/2020/02/unnamed-1.png" alt="">
-                    <span></span>
+                <a class="boxadmin" href="/finalodev/admin/odemeYontemleri">
+                    <img src="https://weepay.co/blog/wp-content/uploads/2020/07/guvenli-odeme.jpg" alt="">
+                    <span>Ödeme Yöntemleri</span>
                 </a>
             </div>
         </div>

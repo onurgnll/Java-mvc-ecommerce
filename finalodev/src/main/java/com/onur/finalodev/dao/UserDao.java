@@ -20,7 +20,6 @@ public class UserDao {
     @Autowired
     private CartDao cartDao;
 
-    // Tüm kullanıcıları veritabanından alır ve döner
     public List<User> getAllUsers() {
         String sqlGetUsers = "SELECT * FROM user";
         
@@ -36,7 +35,6 @@ public class UserDao {
         });
     }
 
-    // Belirli bir kullanıcıyı id ile alır ve döner
     public User getUserById(int userId) {
         String sqlGetUserById = "SELECT * FROM user WHERE id = ?";
         
@@ -52,7 +50,6 @@ public class UserDao {
         });
     }
 
-    // Kullanıcıyı veritabanına ekler
     public void registerUser(User user) {
         String sqlInsertUser = "INSERT INTO user (name, email, password, cartId) VALUES (?, ?, ?, ?)";
         
@@ -75,7 +72,6 @@ public class UserDao {
         
     }
 
-    // Kullanıcıyı email ve şifre ile alır ve döner
     public User loginUser(String email, String password) {
         String sqlGetUserByEmailAndPassword = "SELECT * FROM user WHERE email = ? AND password = ?";
         
@@ -91,7 +87,6 @@ public class UserDao {
         });
     }
 
-    // Kullanıcıyı id ile siler
     public void deleteUser(int userId) {
         String sqlDeleteUser = "DELETE FROM user WHERE id = ?";
         
@@ -104,7 +99,6 @@ public class UserDao {
         }
     }
 
-    // Kullanıcıyı günceller
     public void updateUser(User user) {
         String sqlUpdateUser = "UPDATE user SET name = ?, email = ?, password = ?, cartId = ?, role = ? WHERE id = ?";
 

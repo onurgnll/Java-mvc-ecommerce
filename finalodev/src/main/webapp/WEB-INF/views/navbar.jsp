@@ -143,7 +143,7 @@
 					<a href="/finalodev/profil" class="button mx-2"><i class="fas fa-solid fa-user"></i> Hesabım</a>
 
 					<%
-					if (user.getRole().equals("USER")) {
+					if (user.getRole().equals("ADMIN")) {
 					%>
 
 					<a href="/finalodev/admin" class="button mx-2"><i class="fa-solid fa-user-gear"></i> Yönetici</a>

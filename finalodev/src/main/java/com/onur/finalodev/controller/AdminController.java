@@ -37,7 +37,7 @@ import com.onur.finalodev.model.User;
 @Controller
 public class AdminController {
 
-	String accessRoleString = "USER";
+	String accessRoleString = "ADMIN";
 	
     @Autowired
     private CategoryDao categoryDao;
@@ -154,7 +154,6 @@ public class AdminController {
         if (user != null) {
             if (user.getRole().equals(accessRoleString)) {
 
-                // Assuming you have a method in your DAO to delete the user by ID
                 userDao.deleteUser(userId);
 
                 List<User> users = userDao.getAllUsers();
@@ -182,7 +181,6 @@ public class AdminController {
         if (user != null) {
             if (user.getRole().equals(accessRoleString)) {
 
-                // Assuming you have a method in your DAO to delete the user by ID
                 productDao.deleteProduct(productId);
 
 				ModelAndView modelAndView = new ModelAndView("adminlistproducts");
@@ -274,6 +272,41 @@ public class AdminController {
 		}
 		
 	}
+	
+	@PostMapping(value = "/admin/ara")
+	public ModelAndView adminproductssearch(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		String name = request.getParameter("name");
+		
+		
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
+		HttpSession httpSession = request.getSession();
+
+		
+		User user = (User) httpSession.getAttribute("user");
+		if(user != null) {
+			if(user.getRole().equals(accessRoleString)) {
+				
+				ModelAndView modelAndView = new ModelAndView("adminlistproducts");
+				List<Category> categories = categoryDao.getAllCategories();
+				modelAndView.addObject("categories", categories);
+		        List<Product> products = productDao.getProductsByName(name);
+				modelAndView.addObject("products", products);
+
+
+				return modelAndView;
+				
+			}else {
+				response.sendRedirect("/finalodev/");
+			}
+			
+		}else {
+			response.sendRedirect("/finalodev/");
+			
+		}
+		return new ModelAndView("home");
+		
+	}
 
     @GetMapping(value = "/admin/products")
     public ModelAndView prods(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -343,6 +376,8 @@ public class AdminController {
     public ModelAndView createcategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
 		HttpSession httpSession = request.getSession();
 		
 		User user = (User) httpSession.getAttribute("user");
@@ -554,6 +589,8 @@ public class AdminController {
     public ModelAndView admincategorys(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
 		HttpSession httpSession = request.getSession();
 		
 		User user = (User) httpSession.getAttribute("user");
@@ -580,5 +617,72 @@ public class AdminController {
 		return new ModelAndView("home");
 		
 	}
-	
+    @GetMapping(value = "/admin/odemeYontemleri")
+    public ModelAndView odemeYontemleri(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
+		HttpSession httpSession = request.getSession();
+		
+		User user = (User) httpSession.getAttribute("user");
+		if(user != null) {
+			if(user.getRole().equals(accessRoleString)) {
+				
+				List<User> users = userDao.getAllUsers();
+				List<PaymentMethod> paymentMethods = paymentMethodDao.getAllPaymentMethods();
+				ModelAndView modelAndView = new ModelAndView("adminPaymentMethod");
+				List<Category> categories = categoryDao.getAllCategories();
+				modelAndView.addObject("categories", categories);
+				modelAndView.addObject("users", users);
+				modelAndView.addObject("paymentMethods", paymentMethods);
+
+
+				return modelAndView;
+				
+			}else {
+				response.sendRedirect("/finalodev/");
+			}
+			
+		}else {
+			response.sendRedirect("/finalodev/");
+			
+		}
+		return new ModelAndView("home");
+		
+	}
+
+    @PostMapping(value = "/admin/newOdemeYontemi")
+    public ModelAndView newOdemeYontemi(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
+		HttpSession httpSession = request.getSession();
+		
+		User user = (User) httpSession.getAttribute("user");
+		if(user != null) {
+			if(user.getRole().equals(accessRoleString)) {
+
+		        String paymentName = request.getParameter("paymentName");
+
+		        
+		        PaymentMethod paymentMethod = new PaymentMethod();
+		        paymentMethod.setName(paymentName);
+		        
+		        paymentMethodDao.addPaymentMethod(paymentMethod);
+
+				response.sendRedirect("/finalodev/admin");
+				
+			}else {
+				response.sendRedirect("/finalodev/");
+			}
+			
+		}else {
+			response.sendRedirect("/finalodev/");
+			
+		}
+		return new ModelAndView("home");
+		
+	}
 }

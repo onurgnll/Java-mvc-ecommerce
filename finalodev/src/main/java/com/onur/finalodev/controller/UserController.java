@@ -1,7 +1,10 @@
 package com.onur.finalodev.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.onur.finalodev.dao.UserDao;
 import com.onur.finalodev.dao.CartDao;
 import com.onur.finalodev.dao.CategoryDao;
+import com.onur.finalodev.dao.OrderDao;
+import com.onur.finalodev.dao.OrderProductDao;
+import com.onur.finalodev.dao.PaymentMethodDao;
+import com.onur.finalodev.dao.ProductDao;
 import com.onur.finalodev.model.Category;
+import com.onur.finalodev.model.Order;
+import com.onur.finalodev.model.OrderProduct;
+import com.onur.finalodev.model.OrderProductListing;
+import com.onur.finalodev.model.PaymentMethod;
 import com.onur.finalodev.model.Product;
 import com.onur.finalodev.model.User;
 
@@ -25,17 +36,27 @@ import com.onur.finalodev.model.User;
 public class UserController {
 
     @Autowired
+    private PaymentMethodDao paymentMethodDao;
+    
+    @Autowired
+    private OrderProductDao orderProductDao;
+    @Autowired
+    private ProductDao productDao;
+    @Autowired
     private UserDao userDao;
 
     @Autowired
     private CategoryDao categoryDao;
     @Autowired
     private CartDao cartDao;
+    
+
+    @Autowired
+    private OrderDao orderDao;
 
     @GetMapping(value = "/login")
     public ModelAndView getLogin( HttpServletResponse response) throws IOException {
 
-		// Kategorileri DAO sınıfından alın
 
 		ModelAndView modelAndView = new ModelAndView("login");
 		List<Category> categories = categoryDao.getAllCategories();
@@ -51,26 +72,52 @@ public class UserController {
 
 		User user = (User) httpSession.getAttribute("user");
 		if (user != null) {
+			
+
+			Map<Order, Object[]> map = new HashMap<Order, Object[]>();
+			List<Order> orders = orderDao.getOrdersByUserId(user.getId());
+			
+			
+			for (Order order : orders) {
+				User orderUser = userDao.getUserById(order.getUserId());
+				PaymentMethod paymentMethod = paymentMethodDao.getPaymentMethodById(order.getPaymentMethodId());
+
+				
+				
+				ArrayList<OrderProduct> orderProducts = (ArrayList<OrderProduct>) orderProductDao.getOrderProductsByOrderId(order.getId());
+				List<OrderProductListing> orderProductListings = new ArrayList<OrderProductListing>();
+				
+				for (OrderProduct orderProduct : orderProducts) {
+					
+					Product product =  productDao.getProductById(orderProduct.getProductId());
+					
+					orderProductListings.add(new OrderProductListing(orderProduct.getQuantity() ,product , order));
+					
+				}
+				
+				
+                Object[] orderDetails = {orderProductListings, orderUser, paymentMethod};
+                
+				map.put(order, orderDetails);
+				
+			}
+
 			ModelAndView modelAndView = new ModelAndView("profil");
+			modelAndView.addObject("orders", map);
 			List<Category> categories = categoryDao.getAllCategories();
 			modelAndView.addObject("categories", categories);
-			modelAndView.addObject("user", user);
-
 			return modelAndView;
-			
 			
 		}else {
 
 			response.sendRedirect("/finalodev/");
 		}
 		return new ModelAndView("home");
-		// Kategorileri DAO sınıfından alın
 
     }
     @GetMapping(value = "/register")
     public ModelAndView registerr( HttpServletResponse response) throws IOException {
 
-		// Kategorileri DAO sınıfından alın
 		
 
 		ModelAndView modelAndView = new ModelAndView("register");
@@ -87,7 +134,6 @@ public class UserController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        // Yeni bir sepet oluştur ve ID'sini al
         int cartId = cartDao.createCart();
 
         User user = new User();
@@ -98,8 +144,10 @@ public class UserController {
         
         try {
             userDao.registerUser(user);
+            
+            response.sendRedirect("/finalodev/login");
             ModelAndView modelAndView = new ModelAndView("login");
-            modelAndView.addObject("message", "Registration successful! Please log in.");
+            modelAndView.addObject("message", "Kayıt Başarılı giriş yapın.");
             
             return modelAndView;
 			
