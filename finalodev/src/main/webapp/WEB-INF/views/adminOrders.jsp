@@ -5,7 +5,7 @@
 <%@page import="com.onur.finalodev.model.Order"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.onur.finalodev.model.OrderProductListing"%>
-<%@include file="navbar.jsp"%>
+<%@include file="adminnavbar.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -42,6 +42,19 @@ body {
 </style>
 </head>
 <body>
+
+		<div >
+		
+				<form  action="/finalodev/admin/ara/siparis" method="post" class="search-box ml-5 mt-3  ms-3">
+
+					<label  style="background-color: white"> 
+					
+						<input  style="background-color: white" type="text" placeholder="Admin Sipariş Ara (Email ile)" name="email" class="search-input" />
+						<i class="fas fa-search search-icon"></i>
+
+					</label>
+				</form>
+		</div>
 	<div class="container mt-4">
 		<div class="row">
 		<%

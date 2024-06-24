@@ -61,6 +61,8 @@ public class OrderController {
 	@GetMapping(value = "/satinal")
 	public ModelAndView satinalAndView(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
 		HttpSession httpSession = request.getSession();
 
 		User user = (User) httpSession.getAttribute("user");
@@ -104,6 +106,8 @@ public class OrderController {
 	@PostMapping(value = "/satinalpost")
 	public ModelAndView satinalPost(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
 		HttpSession httpSession = request.getSession();
 
 		User user = (User) httpSession.getAttribute("user");

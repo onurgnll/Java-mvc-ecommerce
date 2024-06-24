@@ -1,4 +1,4 @@
-<%@include file="navbar.jsp" %>
+<%@include file="adminnavbar.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,7 +23,6 @@
         padding-bottom: 15px;
       }
       .button1 {
-        background-color: #ff1b6b;
         color: white;
         border: none;
         border-radius: 5px;
@@ -108,7 +107,7 @@
               <span class="input-group-text">TL</span>
             </div>
           </div>
-          <button class="button1" type="submit">Oluştur</button>
+          <button class="button1 btn btn-primary" type="submit">Oluştur</button>
         </form>
       </div>
     </div>

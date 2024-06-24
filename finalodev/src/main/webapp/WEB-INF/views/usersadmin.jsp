@@ -1,6 +1,6 @@
 <%@page import="com.onur.finalodev.model.User"%>
 <%@page import="java.util.List"%>
-<%@include file="navbar.jsp"%>
+<%@include file="adminnavbar.jsp"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -34,7 +34,6 @@ body {
 }
 
 .bthnnn {
-	background-color: #ff1b6b !important;
 	border: none;
 }
 
@@ -43,6 +42,19 @@ body {
 }
 </style>
 <body>
+
+		<div >
+		
+				<form  action="/finalodev/admin/ara/kullanici" method="post" class="search-box ml-5 mt-3  ms-3">
+
+					<label  style="background-color: white"> 
+					
+						<input  style="background-color: white" type="text" placeholder="Admin Kullanıcı Ara (Email ile)" name="email" class="search-input" />
+						<i class="fas fa-search search-icon"></i>
+
+					</label>
+				</form>
+		</div>
 	<div class="d-flex justify-content-around flex-wrap m-2 mt-4">
 		<%
 		List<User> usersAdmin = (List<User>) request.getAttribute("users");

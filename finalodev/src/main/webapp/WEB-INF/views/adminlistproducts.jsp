@@ -2,7 +2,7 @@
 <%@page import="com.onur.finalodev.model.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="navbar.jsp"%>
+<%@include file="adminnavbar.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +29,6 @@ body {
 }
 
 .bthnnn {
-	background-color: #ff1b6b !important;
 	border: none;
 	border-radius: 10px;
 	/* Butonu başlangıçta gizleyin */

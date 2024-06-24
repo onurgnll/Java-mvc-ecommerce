@@ -70,7 +70,20 @@ public class OrderDao {
         return keyHolder.getKey().intValue();
     }
 
-
+    public List<Order> getOrdersByUserEmail(String email) {
+        String sqlGetOrdersByUserEmail = "SELECT o.* FROM `order` o INNER JOIN `user` u ON o.userId = u.id WHERE u.email LIKE ?";
+        return jdbcTemplate.query(sqlGetOrdersByUserEmail, new Object[]{"%" + email + "%"}, (rs, rowNum) -> {
+            Order order = new Order();
+            order.setId(rs.getInt("id"));
+            order.setUserId(rs.getInt("userId"));
+            order.setTotalPrice(rs.getDouble("totalPrice"));
+            order.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+            order.setAddress(rs.getString("address"));
+            order.setStatus(rs.getString("status"));
+            order.setPaymentMethodId(rs.getInt("paymentMethodId"));
+            return order;
+        });
+    }
     public void updateOrder(Order order) {
         String sqlUpdateOrder = "UPDATE `order` SET userId = ?, totalPrice = ?, createdAt = ?, address = ?, paymentMethodId = ? , status = ? WHERE id = ?";
         jdbcTemplate.update(sqlUpdateOrder, new PreparedStatementSetter() {

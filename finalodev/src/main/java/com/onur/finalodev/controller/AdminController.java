@@ -202,6 +202,45 @@ public class AdminController {
         return new ModelAndView("home");
     }
 	
+	
+
+	@PostMapping(value = "/admin/ara/kullanici")
+	public ModelAndView adminuserssearch(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
+		String email = request.getParameter("email");
+		HttpSession httpSession = request.getSession();
+
+		
+		User user = (User) httpSession.getAttribute("user");
+		if(user != null) {
+			if(user.getRole().equals(accessRoleString)) {
+
+				List<User> users = userDao.searchUsersByEmail(email);
+				ModelAndView modelAndView = new ModelAndView("usersadmin");
+				modelAndView.addObject("users", users);
+				List<Category> categories = categoryDao.getAllCategories();
+				modelAndView.addObject("categories", categories);
+
+
+
+				return modelAndView;
+				
+			}else {
+				response.sendRedirect("/finalodev/");
+			}
+			
+		}else {
+			response.sendRedirect("/finalodev/");
+			
+		}
+		return new ModelAndView("home");
+		
+	}
+	
+	
 	@RequestMapping(value = "/admin/users")
 	public ModelAndView adminusers(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
@@ -272,14 +311,13 @@ public class AdminController {
 		}
 		
 	}
-	
 	@PostMapping(value = "/admin/ara")
 	public ModelAndView adminproductssearch(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		String name = request.getParameter("name");
 		
 		
 	    request.setCharacterEncoding("UTF-8");
 	    response.setCharacterEncoding("UTF-8");
+		String name = request.getParameter("name");
 		HttpSession httpSession = request.getSession();
 
 		
@@ -433,28 +471,28 @@ public class AdminController {
 		return new ModelAndView("home");
 		
 	}
-    @GetMapping(value = "/admin/orders")
-    public ModelAndView adminorders(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
+    
 
-
+	@PostMapping(value = "/admin/ara/siparis")
+	public ModelAndView adminorderssearch(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		
+	    request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
+		String email = request.getParameter("email");
 		HttpSession httpSession = request.getSession();
+
 		
 		User user = (User) httpSession.getAttribute("user");
 		if(user != null) {
 			if(user.getRole().equals(accessRoleString)) {
-				
+
 				Map<Order, Object[]> map = new HashMap<Order, Object[]>();
-				List<Order> orders = orderDao.getAllOrders();
 				
-				/*
-				for (Order order: orders) {
-					ArrayList<OrderProduct> orderProduct = (ArrayList<OrderProduct>) orderProductDao.getOrderProductsByOrderId(order.getId());
-					User orderUser = userDao.getUserById(order.getUserId());
-					PaymentMethod paymentMethod = paymentMethodDao.getPaymentMethodById(order.getPaymentMethodId());
-					
-					map.put(order,[orderProduct]);
-					
-				}*/
+				
+				List<Order> orders = orderDao.getOrdersByUserEmail(email);
+				
 				
 				for (Order order : orders) {
 					User orderUser = userDao.getUserById(order.getUserId());
@@ -488,6 +526,73 @@ public class AdminController {
 				modelAndView.addObject("users", users);
 				return modelAndView;
 				
+			}else {
+				response.sendRedirect("/finalodev/");
+			}
+			
+		}else {
+			response.sendRedirect("/finalodev/");
+			
+		}
+		return new ModelAndView("home");
+		
+	}
+    
+    @GetMapping(value = "/admin/orders")
+    public ModelAndView adminorders(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
+		HttpSession httpSession = request.getSession();
+		
+		User user = (User) httpSession.getAttribute("user");
+		if(user != null) {
+			if(user.getRole().equals(accessRoleString)) {
+				
+				Map<Order, Object[]> map = new HashMap<Order, Object[]>();
+				List<Order> orders = orderDao.getAllOrders();
+				
+				
+				for (Order order : orders) {
+					User orderUser = userDao.getUserById(order.getUserId());
+					PaymentMethod paymentMethod = paymentMethodDao.getPaymentMethodById(order.getPaymentMethodId());
+
+					
+					
+					ArrayList<OrderProduct> orderProducts = (ArrayList<OrderProduct>) orderProductDao.getOrderProductsByOrderId(order.getId());
+					List<OrderProductListing> orderProductListings = new ArrayList<OrderProductListing>();
+					
+					for (OrderProduct orderProduct : orderProducts) {
+						
+						Product product =  productDao.getProductById(orderProduct.getProductId());
+						
+						orderProductListings.add(new OrderProductListing(orderProduct.getQuantity() ,product , order));
+						
+					}
+					
+					
+	                Object[] orderDetails = {orderProductListings, orderUser, paymentMethod};
+	                
+					map.put(order, orderDetails);
+					
+				}
+
+				List<User> users = userDao.getAllUsers();
+				ModelAndView modelAndView = new ModelAndView("adminOrders");
+				modelAndView.addObject("orders", map);
+				List<Category> categories = categoryDao.getAllCategories();
+				modelAndView.addObject("categories", categories);
+				modelAndView.addObject("users", users);
+				return modelAndView;
+
+				/*
+				for (Order order: orders) {
+					ArrayList<OrderProduct> orderProduct = (ArrayList<OrderProduct>) orderProductDao.getOrderProductsByOrderId(order.getId());
+					User orderUser = userDao.getUserById(order.getUserId());
+					PaymentMethod paymentMethod = paymentMethodDao.getPaymentMethodById(order.getPaymentMethodId());
+					
+					map.put(order,[orderProduct]);
+					
+				}*/
 				/*
 				for (Map.Entry<Order, ArrayList<OrderProduct>> entry : map.entrySet()) {
 			        System.out.println(entry.getKey().getAddress() + ":" + entry.getValue());

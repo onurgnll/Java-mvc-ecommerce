@@ -34,7 +34,20 @@ public class UserDao {
             return user;
         });
     }
-
+    public List<User> searchUsersByEmail(String email) {
+        String sqlSearchUsersByEmail = "SELECT * FROM user WHERE email LIKE ?";
+        
+        return jdbcTemplate.query(sqlSearchUsersByEmail, new Object[]{"%" + email + "%"}, (rs, rowNum) -> {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setName(rs.getString("name"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setCartId(rs.getInt("cartId"));
+            user.setRole(rs.getString("role"));
+            return user;
+        });
+    }
     public User getUserById(int userId) {
         String sqlGetUserById = "SELECT * FROM user WHERE id = ?";
         
